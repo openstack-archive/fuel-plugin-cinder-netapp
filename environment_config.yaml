@@ -1,0 +1,43 @@
+attributes:
+  multibackend:
+    value: false
+    label: 'Multibackend enabled'
+    description: 'NetApp driver will be used as a Cinder Multibackend feature'
+    weight: 35
+    type: "checkbox"
+  netapp_login:
+    value: ''
+    label: 'Username'
+    description: 'Administrative user account name used to access the storage system or proxy server.'
+    weight: 45
+    type: "text"
+  netapp_password:
+    value: ''
+    label: 'Password'
+    description: 'Password for the administrative user account specified in the netapp_login option.'
+    weight: 45
+    type: "password"
+  netapp_server_hostname:
+    value: ''
+    label: 'NetApp Hostname/IP'
+    description: 'The hostname (or IP address) for the storage system or proxy server.'
+    weight: 55
+    type: "text"
+  nfs_server_ip:
+    value: ''
+    label: 'NetApp NFS server Hostname/IP'
+    description: 'The hostname (or IP address) for NFS server started on NetApp apliance'
+    weight: 65
+    type: "text"
+  nfs_server_share:
+    value: ''
+    label: 'NetApp NFS share'
+    description: 'The NFS share path (e.g. /vol2)'
+    weight: 75
+    type: "text"
+  netapp_vserver:
+    value: ''
+    label: 'Vserver'
+    description: 'This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur.'
+    weight: 75
+    type: "text"
