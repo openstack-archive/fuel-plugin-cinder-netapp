@@ -1,11 +1,13 @@
 # Plugin name
 name: cinder_netapp
+# Human-readable name for your plugin
+title: Cinder and NetApp integration
 # Plugin version
-version: 0.1.0
+version: 1.0.0
 # Description
-description: Enable to use plugin X for Neutron
+description: Enable to use NetApp nfs driver as a Cinder backend
 # Required fuel version
-fuel_version: 6.0
+fuel_version: ['6.0']
 
 # The plugin is compatible with releases in the list
 releases:
@@ -20,12 +22,5 @@ releases:
     deployment_scripts_path: deployment_scripts/
     repository_path: repositories/centos
 
-# Plugin types are required to determine what this plugins
-# extends and how to install them
-types:
-  - nailgun
-  - repository
-  - deployment_scripts
-
 # Version of plugin package
-package_version: '1'
+package_version: '1.0.0'
