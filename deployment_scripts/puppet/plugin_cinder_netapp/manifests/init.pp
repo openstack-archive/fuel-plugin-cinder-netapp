@@ -6,7 +6,7 @@ class plugin_cinder_netapp
     if $::fuel_settings['cinder_netapp']['multibackend'] {
       $section = 'cinder_netapp'
     } else {
-      $srction = 'DEFAULT'
+      $section = 'DEFAULT'
     }
 
     case $::osfamily {
