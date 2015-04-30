@@ -1,13 +1,16 @@
 class plugin_cinder_netapp
 {
     include cinder::params
-
+    
     #TODO: (Dmitry Ukov) improve logic as soon as multibackend is implemented
     if $::fuel_settings['cinder_netapp']['multibackend'] {
       $section = 'cinder_netapp'
     } else {
       $section = 'DEFAULT'
     }
+
+    #Ensure that $ symbole is correctly escaped in netapp password
+    $netapp_password = regsubst($::fuel_settings['cinder_netapp']['netapp_password'],'\$','$$','G')
 
     case $::osfamily {
       'Debian': {
@@ -38,7 +41,7 @@ class plugin_cinder_netapp
     } ->
     cinder::backend::netapp { 'cinder_netapp':
       netapp_login                 => $::fuel_settings['cinder_netapp']['netapp_login'],
-      netapp_password              => $::fuel_settings['cinder_netapp']['netapp_password'],
+      netapp_password              => $netapp_password,
       netapp_server_hostname       => $::fuel_settings['cinder_netapp']['netapp_server_hostname'],
       volume_backend_name          => $section,
 #      netapp_server_port           => '80',
