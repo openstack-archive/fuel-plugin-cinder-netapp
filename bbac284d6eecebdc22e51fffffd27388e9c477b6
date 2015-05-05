@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Code-Review+1: Dmitry Ukov <dukov@mirantis.com>
+Code-Review+1: Salvo Rapisarda <sdrapisarda@gmail.com>
+Code-Review+2: Przemyslaw Kaminski <pkaminski@mirantis.com>
+Workflow+1: Przemyslaw Kaminski <pkaminski@mirantis.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 05 May 2015 13:25:16 +0000
+Reviewed-on: https://review.openstack.org/179015
+Project: stackforge/fuel-plugin-cinder-netapp
+Branch: refs/heads/master
