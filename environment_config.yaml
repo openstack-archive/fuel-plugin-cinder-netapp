@@ -2,9 +2,21 @@ attributes:
   multibackend:
     value: false
     label: 'Multibackend enabled'
-    description: 'NetApp driver will be used as a Cinder Multibackend feature'
+    description: 'NetApp driver will be used as a Cinder Multibackend feature (not implemented)'
     weight: 35
     type: "checkbox"
+  netapp_storage_family:
+    value: "ontap_cluster"
+    values:
+        - data: "ontap_cluster"
+          label: "Ontap cluster"
+          description: "Clustered data ONTAP storage family"
+        - data: "ontap_7mode"
+          label: "Ontap 7 mode"
+          description: "Data ONTAP operating in 7_mode storage family"
+    label: "Netapp storage family"
+    weight: 40
+    type: "radio"
   netapp_login:
     value: ''
     label: 'Username'
@@ -35,9 +47,113 @@ attributes:
     description: 'The NFS share path (e.g. /vol2)'
     weight: 75
     type: "text"
+  netapp_transport_type:
+    value: "http"
+    values:
+        - data: "http"
+          label: "http"
+          description: ""
+        - data: "https"
+          label: "https"
+          description: ""
+    label: "Netapp transport type"
+    description: 'The transport protocol used for communication with the storage system or proxy server'
+    weight: 76
+    type: "radio"
+  netapp_server_port:
+    value: '80'
+    label: 'NetApp server port'
+    description: 'The TCP port to use for communication with the storage system or proxy server'
+    weight: 77
+    type: "text"
+  netapp_storage_protocol:
+    value: "nfs"
+    values:
+        - data: "nfs"
+          label: "nfs"
+          description: ""
+        - data: "iscsi"
+          label: "iscsi"
+          description: ""
+    label: "Netapp storage protocol"
+    description: 'The storage protocol to be used on the data path with the storage system'
+    weight: 78
+    type: "radio"
+
   netapp_vserver:
     value: ''
     label: 'Vserver'
-    description: 'This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur.'
+    description: 'This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur. (Cluster-Mode only and mandatory for NFS Storage protocol)'
     weight: 75
     type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'ontap_cluster'"
+        action: "hide"
+
+  expiry_thres_minutes:
+    value: '720'
+    label: 'Expiry thres minutes'
+    description: 'This option specifies the threshold for last access time for images in the NFS image cache (NFS protocol only)'
+    weight: 85
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: "hide"
+  netapp_copyoffload_tool_path:
+    value: ''
+    label: 'NetApp copyoffload tool path'
+    description: '(Optionnal) This option specifies the path of the Netapp copy ofload tool binary (NFS protocol only)'
+    weight: 85
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: "hide"
+  thres_avil_size_perc_start:
+    value: '20'
+    label: 'Thres avl size perc start'
+    description: 'The percentage of available space from which the NFS image cache will be cleaned (NFS protocol only)'
+    weight: 85
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: "hide"
+  thres_avil_size_perc_stop:
+    value: '60'
+    label: 'Thres avl size perc stop'
+    description: 'The percentage of available space from which the driver will stop cleaning the NFS image cache (NFS protocol only)'
+    weight: 85
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: "hide"
+
+  netapp_size_multiplier:
+    value: '1.2'
+    label: 'NetApp size multiplier'
+    description: 'Mutiplication factor used to chack available space on the virtual storage server (iSCSI configuration only)'
+    weight: 90
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi'"
+        action: "hide"
+
+  netapp_vfiler:
+    value: ''
+    label: 'Netapp vfiler'
+    description: '(Optionnal) The vFiler unti on which provisioning of block storage volumes will be done (iSCSI configuration in 7-Mode only)'
+    weight: 90
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value != 'ontap_7mode'"
+        action: "hide"
+  netapp_volume_list:
+    value: ''
+    label: 'Netapp volume list'
+    description: '(Optionnal)  This option is used to restrict provisionning to the specified controller volumes (iSCSI configuration in 7-Mode only)'
+    weight: 90
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value != 'ontap_7mode'"
+        action: "hide"
+
+

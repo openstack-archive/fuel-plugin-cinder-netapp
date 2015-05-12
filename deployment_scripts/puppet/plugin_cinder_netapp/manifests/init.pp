@@ -44,27 +44,24 @@ class plugin_cinder_netapp
       netapp_password              => $netapp_password,
       netapp_server_hostname       => $::fuel_settings['cinder_netapp']['netapp_server_hostname'],
       volume_backend_name          => $section,
-#      netapp_server_port           => '80',
-#      netapp_size_multiplier       => '1.2',
-#      netapp_storage_family        => 'ontap_cluster',
-      netapp_storage_protocol      => 'nfs',
-#      netapp_transport_type        => 'http',
-#      netapp_vfiler                => '',
-#      netapp_volume_list           => '',
+      netapp_server_port           => $::fuel_settings['cinder_netapp']['netapp_server_port'],
+      netapp_size_multiplier       => $::fuel_settings['cinder_netapp']['netapp_size_multiplier'],
+      netapp_storage_family        => $::fuel_settings['cinder_netapp']['netapp_storage_family'],
+      netapp_storage_protocol      => $::fuel_settings['cinder_netapp']['netapp_storage_protocol'],
+      netapp_transport_type        => $::fuel_settings['cinder_netapp']['netapp_transport_type'],
+      netapp_vfiler                => $::fuel_settings['cinder_netapp']['netapp_vfiler'],
+      netapp_volume_list           => $::fuel_settings['cinder_netapp']['netapp_volume_list'],
       netapp_vserver               => $::fuel_settings['cinder_netapp']['netapp_vserver'],
-#      expiry_thres_minutes         => '720',
-#      thres_avl_size_perc_start    => '20',
-#      thres_avl_size_perc_stop     => '60',
+      expiry_thres_minutes         => $::fuel_settings['cinder_netapp']['expiry_thres_minutes'],
+      thres_avl_size_perc_start    => $::fuel_settings['cinder_netapp']['thres_avl_size_perc_start'],
+      thres_avl_size_perc_stop     => $::fuel_settings['cinder_netapp']['thres_avl_size_perc_stop'],
       nfs_shares_config            => '/etc/cinder/shares.conf',
-#      netapp_copyoffload_tool_path => '',
-#      netapp_controller_ips        => '',
-#      netapp_sa_password           => '',
-#      netapp_storage_pools         => '',
-#      netapp_webservice_path       => '/devmgr/v2',
+      netapp_copyoffload_tool_path => $::fuel_settings['cinder_netapp']['netapp_copyoffload_tool_path'],
+      #netapp_controller_ips        => '',
+      #netapp_sa_password           => '',
+      #netapp_storage_pools         => '',
+      #netapp_webservice_path       => '/devmgr/v2',
     } ~>
     service { $::cinder::params::volume_service:
     }
-
 }
-
-
