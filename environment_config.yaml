@@ -2,9 +2,10 @@ attributes:
   multibackend:
     value: false
     label: 'Multibackend enabled'
-    description: 'NetApp driver will be used as a Cinder Multibackend feature (not implemented)'
+    description: 'NetApp driver will be used as a Cinder Multibackend feature'
     weight: 35
     type: "checkbox"
+
   netapp_storage_family:
     value: "ontap_cluster"
     values:
@@ -41,12 +42,55 @@ attributes:
     description: 'The hostname (or IP address) for NFS server started on NetApp apliance'
     weight: 65
     type: "text"
-  nfs_server_share:
+  nb_share:
+    type: "select"
+    weight: 72
+    value: "1"
+    label: "Number of Netapp NFS share"
+    description: ""
+    values:
+      - data: "1"
+        label: "1"
+      - data: "2"
+        label: "2"
+      - data: "3"
+        label: "3"
+      - data: "4"
+        label: "4" 
+  nfs_server_share1:
     value: ''
     label: 'NetApp NFS share'
     description: 'The NFS share path (e.g. /vol2)'
     weight: 75
     type: "text"
+  nfs_server_share2:
+    value: ''
+    label: 'NetApp NFS share 2'
+    description: 'The NFS share path (e.g. /vol2)'
+    weight: 75
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.nb_share.value != '2'  and settings:cinder_netapp.nb_share.value != '3' and settings:cinder_netapp.nb_share.value != '4' "
+
+        action: "hide"
+  nfs_server_share3:
+    value: ''
+    label: 'NetApp NFS share 3'
+    description: 'The NFS share path (e.g. /vol2)'
+    weight: 75
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.nb_share.value != '3' and settings:cinder_netapp.nb_share.value != '4' "
+        action: "hide"
+  nfs_server_share4:
+    value: ''
+    label: 'NetApp NFS share 4'
+    description: 'The NFS share path (e.g. /vol2)'
+    weight: 75
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.nb_share.value != '4' "
+        action: "hide"
   netapp_transport_type:
     value: "http"
     values:
@@ -155,5 +199,3 @@ attributes:
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value != 'ontap_7mode'"
         action: "hide"
-
-

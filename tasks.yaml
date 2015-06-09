@@ -2,6 +2,20 @@
   stage: post_deployment
   type: puppet
   parameters:
-    puppet_manifest: site.pp
-    puppet_modules: "puppet/:/etc/puppet/modules/"
+    puppet_manifest: puppet/manifests/site_controller.pp
+    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    timeout: 360
+- role: ['compute']
+  stage: post_deployment
+  type: puppet
+  parameters:
+    puppet_manifest: puppet/manifests/site_compute.pp
+    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    timeout: 360
+- role: ['cinder']
+  stage: post_deployment
+  type: puppet
+  parameters:
+    puppet_manifest: puppet/manifests/site_cinder.pp
+    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
     timeout: 360
