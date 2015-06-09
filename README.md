@@ -319,6 +319,14 @@ None.
 Release Notes
 -------------
 
+**1.2.0**
+
+* add  multi backend support
+
+* add missing dependencies on compute node
+
+* add capacity to deploy cinder role on a non controller node
+
 **1.1.0**
 
 * add 7 mode storage familly support
