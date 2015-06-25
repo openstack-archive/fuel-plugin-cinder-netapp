@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Code-Review+2: LoicNicolle <loic.nicolle@orange.com>
+Workflow+1: LoicNicolle <loic.nicolle@orange.com>
+Submitted-by: Jenkins
+Submitted-at: Thu, 25 Jun 2015 08:49:09 +0000
+Reviewed-on: https://review.openstack.org/189578
+Project: stackforge/fuel-plugin-cinder-netapp
+Branch: refs/heads/master
