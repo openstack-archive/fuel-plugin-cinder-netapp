@@ -22,8 +22,8 @@ Requirements
 
 | Requirement                                                                              | Version/Comment                                         |
 |------------------------------------------------------------------------------------------|---------------------------------------------------------|
-| Mirantis Openstack compatibility                                                         | 6.0                                                     |
-| Netapp filer or appliance  is reacheble via one of the Mirantis OPenstack networks       | Cluster mode or 7 mode storage familly                  |
+| Mirantis Openstack compatibility                                                         | 6.1                                                     |
+| Netapp filer or appliance  is reacheble via one of the Mirantis OPenstack networks       | Cluster mode or 7 mode storage familly with nfs4 enabled|
 
 
 
@@ -254,19 +254,23 @@ cinder-netapp plugin installation
 
    ``fpb --build fuel-plugin-cinder-netapp/``
 
-4. The cinder_netapp-<x.x.x>.fp file will be created in the plugin folder (fuel-plugin-cinder-netapp)
+4. The cinder_netapp-<x.x.x>.rpm file will be created in the plugin folder (fuel-plugin-cinder-netapp)
 
 5. Move this file to the Fuel Master node with secure copy (scp):
 
-   ``scp cinder_netapp-<x.x.x>.fp root@:<the_Fuel_Master_node_IP address>:/tmp``
+   ``scp cinder_netapp-<x.x.x>.rpm root@:<the_Fuel_Master_node_IP address>:/tmp``
 
    ``cd /tmp``
 
 6. Install the cinder_netapp plugin:
 
-   ``fuel plugins --install cinder_netapp-<x.x.x>.fp``
+   ``fuel plugins --install cinder_netapp-<x.x.x>.rpm``
 
-6. Plugin is ready to use and can be enabled on the Settings tab of the Fuel web UI.
+7. Verify that the plugin is installed correctly:
+
+   ``fuel plugins --list``
+
+8. Plugin is ready to use and can be enabled on the Settings tab of the Fuel web UI.
 
 
 User Guide
@@ -318,6 +322,10 @@ None.
 
 Release Notes
 -------------
+
+**2.0.0**
+
+* migrate plugins from 1.0.0 to 2.0.0 package version
 
 **1.2.0**
 
