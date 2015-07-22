@@ -7,7 +7,9 @@ cinder-netapp plugin
 Overview
 --------
 
-NetApp plugin will replace Cinder LVM backend by Cinder Netapp Backend  (multi-backend feature is not yet implemented). LVM is the default volume backend that uses local volumes managed by LVM. 
+NetApp plugin can replace the Cinder LVM backend by Cinder Netapp Backend or work in parallel when deployed with multi-backend enabled.
+LVM is the default volume backend that uses local volumes managed by LVM.
+
 The plugin support following storage familly mode:
  - 7 Mode
  - Cluster Mode
@@ -242,7 +244,7 @@ Storage configuration
 cinder-netapp plugin installation
 ---------------------------------
 
-1. Clone the fuel-plugin repo from: https://github.com/stackforge/fuel-plugin-nova-nfs.git
+1. Clone the fuel-plugin repo from: https://github.com/stackforge/fuel-plugin-cinder-netapp.git
 
    ``git clone``
 
