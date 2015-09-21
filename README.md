@@ -325,6 +325,10 @@ None.
 Release Notes
 -------------
 
+**3.1.0**
+
+* add high availability of operations with Volumes
+
 **3.0.0**
 
 * migrate the plugin from 2.0.0 to 3.0.0 package version
