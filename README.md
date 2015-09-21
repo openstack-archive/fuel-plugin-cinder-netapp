@@ -13,6 +13,7 @@ LVM is the default volume backend that uses local volumes managed by LVM.
 The plugin support following storage familly mode:
  - 7 Mode
  - Cluster Mode
+ - E-Series
 
 This repo contains all necessary files to build Cinder NetApp Fuel plugin.
 
@@ -307,6 +308,11 @@ Here is a screenshot of the fields
 
 ![Cinder-netapp 7 Mode iscsi fields](./figures/cinder-netapp-7mode-iscsi-plugin.png "Cinder-netapp 7 Mode iscsi fields")
 
+   e) E-Series and iscsi
+
+Here is a screenshot of the fields
+![Cinder-netapp E-Series iscsi fields](./figures/cinder-netapp-eseries-iscsi-plugin.png "Cinder-netapp E-Series iscsi fields")
+
 3) Assign Cinder role to one of the nodes
 4) For more information on NetApp integration into Cinder, configuration and API issues, see  [the Official Netapp Guide for Openstack](http://docs.openstack.org/juno/config-reference/content/netapp-volume-driver.html).
 
@@ -324,6 +330,12 @@ None.
 
 Release Notes
 -------------
+
+**3.2.0**
+
+* add E-Series storage familly support
+
+* fix the plugin UI
 
 **3.1.0**
 
