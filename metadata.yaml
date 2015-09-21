@@ -3,30 +3,30 @@ name: cinder_netapp
 # Human-readable name for your plugin
 title: Cinder and NetApp integration
 # Plugin version
-version: 2.0.0
+version: 3.0.0
 # Description
 description: Enable to use NetApp nfs driver as a Cinder backend
 # Required fuel version
-fuel_version: ['6.1']
+fuel_version: ['7.0']
 
 authors: ['Mirantis Inc','Orange']
-licenses: [Apache License Version 2.0]
-homepage: https://github.com/stackforge/fuel-plugin-tls
+licenses: ['Apache License Version 2.0']
+homepage: 'https://github.com/stackforge/fuel-plugin-cinder-netapp'
 groups: ['storage::cinder']
 
 
 # The plugin is compatible with releases in the list
 releases:
   - os: ubuntu
-    version: 2014.2-6.1
+    version: 2015.1.0-7.0
     mode: ['ha', 'multinode']
     deployment_scripts_path: deployment_scripts/
     repository_path: repositories/ubuntu
   - os: centos
-    version: 2014.2-6.1
+    version: 2015.1.0-7.0
     mode: ['ha', 'multinode']
     deployment_scripts_path: deployment_scripts/
     repository_path: repositories/centos
 
 # Version of plugin package
-package_version: '2.0.0'
+package_version: '3.0.0'
