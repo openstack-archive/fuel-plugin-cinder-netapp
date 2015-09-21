@@ -1,0 +1,30 @@
+# Deployment tasks
+- id: controller-netapp
+  type: puppet
+  groups: [primary-controller, controller]
+  required_for: [post_deployment_end]
+  requires: [post_deployment_start]
+  parameters:
+    puppet_manifest: puppet/manifests/site_controller.pp
+    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    timeout: 360
+
+- id: compute-netapp
+  type: puppet
+  groups: [compute]
+  required_for: [post_deployment_end]
+  requires: [post_deployment_start]
+  parameters:
+    puppet_manifest: puppet/manifests/site_compute.pp
+    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    timeout: 360
+
+- id: cinder-netapp
+  type: puppet
+  groups: [cinder]
+  required_for: [post_deployment_end]
+  requires: [post_deployment_start]
+  parameters:
+    puppet_manifest: puppet/manifests/site_cinder.pp
+    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    timeout: 360
