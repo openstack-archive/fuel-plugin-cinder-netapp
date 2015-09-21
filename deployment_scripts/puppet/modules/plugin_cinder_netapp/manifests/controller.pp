@@ -5,11 +5,16 @@
 #
 class plugin_cinder_netapp::controller
 inherits plugin_cinder_netapp::params {
+
+    cinder_config {
+      "DEFAULT/host": value => "str:netapp";
+    }
+
     $cinder_hash = $::fuel_settings['cinder']
     if $::fuel_settings['cinder_netapp']['multibackend'] {
       class { 'plugin_cinder_netapp::multibackend_controller':
         cinder_user_password => $cinder_hash[user_password],
-        auth_host            => $::fuel_settings['management_vip']
+        auth_host            => hiera('management_vip', undef)
       } 
     } else {
       $section = 'DEFAULT'
