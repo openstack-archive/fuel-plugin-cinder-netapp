@@ -24,7 +24,7 @@ Requirements
 
 | Requirement                                                                              | Version/Comment                                         |
 |------------------------------------------------------------------------------------------|---------------------------------------------------------|
-| Mirantis Openstack compatibility                                                         | 6.1                                                     |
+| Mirantis Openstack compatibility                                                         | 7.0                                                     |
 | Netapp filer or appliance  is reacheble via one of the Mirantis OPenstack networks       | Cluster mode or 7 mode storage familly with nfs4 enabled|
 
 
@@ -324,6 +324,10 @@ None.
 
 Release Notes
 -------------
+
+**3.0.0**
+
+* migrate the plugin from 2.0.0 to 3.0.0 package version
 
 **2.0.0**
 

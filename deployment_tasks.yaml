@@ -1,20 +1,29 @@
-- role: ['primary-controller','controller']
-  stage: post_deployment/6000
+# Deployment tasks
+- id: controller-netapp
   type: puppet
+  role: [primary-controller, controller]
+  required_for: [post_deployment_end]
+  requires: [post_deployment_start]
   parameters:
     puppet_manifest: puppet/manifests/site_controller.pp
     puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
     timeout: 360
-- role: ['compute']
-  stage: post_deployment/6001
+
+- id: compute-netapp
   type: puppet
+  role: [compute]
+  required_for: [post_deployment_end]
+  requires: [post_deployment_start]
   parameters:
     puppet_manifest: puppet/manifests/site_compute.pp
     puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
     timeout: 360
-- role: ['cinder']
-  stage: post_deployment/6002
+
+- id: cinder-netapp
   type: puppet
+  role: [cinder]
+  required_for: [post_deployment_end]
+  requires: [post_deployment_start]
   parameters:
     puppet_manifest: puppet/manifests/site_cinder.pp
     puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
