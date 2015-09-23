@@ -1,0 +1,86 @@
+
+Once the Fuel Cinder NetApp  plugin has been installed, you can
+create OpenStack environments that use NetApp storage as a Cinder backend.
+
+
+Configuring NetApp plugin
+-------------------------
+
+#. Create an OpenStack environment using the Fuel UI wizard:
+
+   .. image:: images/create_env.png
+      :width: 100%
+
+#. Finish environment creation following
+   `the instructions <https://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#create-a-new-openstack-environment>`_.
+
+#. Once the environment is created, open the *Settings* tab of the Fuel Web UI
+   and scroll down the page.
+
+#. Configure the plugin according to your needs.
+
+  - Choose storage family and storage protocol
+
+    .. image:: images/config_plugin.png
+       :width: 100%
+
+  - If you plan to use ONTAP cluster mode through NFS, please specify the following parameters:
+    
+    - Netapp login
+    - Netapp password
+    - Netapp server hostname
+    - NFS server
+    - NFS share(s)
+    - Netapp Vserver
+
+    .. image:: images/cmode_nfs.png
+       :width: 100%
+
+  - If you plan to use ONTAP cluster mode through iSCSI, please specify the following parameters:
+
+    - Netapp login
+    - Netapp password
+    - Netapp server hostname
+    - Netapp Vserver
+
+    .. image:: images/cmode_iscsi.png
+       :width: 100%
+
+  - If you plan to use ONTAP 7 mode through NFS, please specify the following parameters:
+
+    - Netapp login
+    - Netapp password
+    - Netapp server hostname
+    - NFS server
+    - NFS share(s)
+
+    .. image:: images/7mode_nfs.png
+       :width: 100%
+
+  - If you plan to use ONTAP 7 mode through iSCSI, please specify the following parameters:
+
+    - Netapp login
+    - Netapp password
+    - Netapp server hostname
+
+    .. image:: images/7mode_iscsi.png
+       :width: 100%
+      
+  - If you plan to use E-series, please specify the following parameters:
+
+    - Netapp login
+    - Netapp password
+    - Netapp server hostname
+    - Netapp controller IPs
+    - Netapp SA password
+    - Storage pools
+
+    .. image:: images/eseries.png
+       :width: 100%
+
+#. Using *Nodes* tab, `add nodes and assign roles to them <https://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#add-nodes-to-the-environment>`_.
+   Please, note that all controller nodes should be configured with Cinder role.
+
+#. Press `Deploy button <https://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#deploy-changes>`_
+   once you are done with environment configuration.
+
