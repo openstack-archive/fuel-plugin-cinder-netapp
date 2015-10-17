@@ -1,4 +1,4 @@
 [gerrit]
 host=review.openstack.org
 port=29418
-project=stackforge/fuel-plugin-cinder-netapp.git
+project=openstack/fuel-plugin-cinder-netapp.git
