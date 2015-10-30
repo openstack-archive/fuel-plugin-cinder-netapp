@@ -105,3 +105,5 @@ Configuring NetApp plugin
 #. Press `Deploy button <https://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#deploy-changes>`_
    once you are done with environment configuration.
 
+#. When the deployment is done, you may perform functional testing.
+   You can find instructions in `NetApp Mirantis Unlocked Reference Architecture <http://content.mirantis.com/Mirantis-NetApp-Reference-Architecture-Landing-Page.html>`_, paragraph 8.3. 
