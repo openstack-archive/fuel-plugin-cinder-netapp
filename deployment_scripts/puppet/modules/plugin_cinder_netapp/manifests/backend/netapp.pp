@@ -41,10 +41,15 @@ define plugin_cinder_netapp::backend::netapp (
       netapp_copyoffload_tool_path => $::fuel_settings['cinder_netapp']['netapp_copyoffload_tool_path'],
     }
     $index = $::fuel_settings['cinder_netapp']['nb_share']
-    if $mutlibackends{
+    if $mutlibackends {
       cinder_config {
         "DEFAULT/enabled_backends": value => "${backends},${backend_name}";
       }  
+    }
+    else {
+      cinder_config {
+        "DEFAULT/enabled_backends": value => "${backend_name}";
+      }
     }
     if $cinder_node{
       plugin_cinder_netapp::backend::share{ "share-${index}":
