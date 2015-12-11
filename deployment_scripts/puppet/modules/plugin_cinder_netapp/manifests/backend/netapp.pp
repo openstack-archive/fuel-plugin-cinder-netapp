@@ -50,6 +50,10 @@ define plugin_cinder_netapp::backend::netapp (
     cinder_config {
       'DEFAULT/enabled_backends': value => "${backends},${backend_name}";
     }
+  } else {
+    cinder_config {
+      'DEFAULT/enabled_backends': value => "${backend_name}";
+    }
   }
 
   if $cinder_node {
