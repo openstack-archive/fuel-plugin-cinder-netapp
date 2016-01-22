@@ -32,18 +32,17 @@
 
 define plugin_cinder_netapp::cinder::type (
   $os_password,
+  $volume_name    = $name,
   $set_key        = undef,
   $set_value      = undef,
   $os_tenant_name = 'admin',
   $os_username    = 'admin',
   $os_auth_url    = 'http://127.0.0.1:5000/v2.0/',
   $os_region_name = undef,
-  ) {
+) {
 
-  $volume_name = $name
-
-# TODO: (xarses) This should be moved to a ruby provider so that among other
-#   reasons, the credential discovery magic can occur like in neutron.
+  # TODO: (xarses) This should be moved to a ruby provider so that among other
+  #   reasons, the credential discovery magic can occur like in neutron.
 
   $cinder_env = [
     "OS_TENANT_NAME=${os_tenant_name}",
@@ -59,7 +58,7 @@ define plugin_cinder_netapp::cinder::type (
     $region_env = []
   }
 
-  exec {"cinder type-create ${volume_name}":
+  exec { "cinder type-create ${volume_name}":
     command     => "cinder type-create ${volume_name}",
     unless      => "cinder type-list | grep -qP '\\b${volume_name}\\b'",
     environment => concat($cinder_env, $region_env),
@@ -70,13 +69,14 @@ define plugin_cinder_netapp::cinder::type (
   if ($set_value and $set_key) {
     Exec["cinder type-create ${volume_name}"] ->
     plugin_cinder_netapp::cinder::type_set { $set_value:
-      type            => $volume_name,
-      key             => $set_key,
-      os_password     => $os_password,
-      os_tenant_name  => $os_tenant_name,
-      os_username     => $os_username,
-      os_auth_url     => $os_auth_url,
-      os_region_name  => $os_region_name,
+      type           => $volume_name,
+      key            => $set_key,
+      os_password    => $os_password,
+      os_tenant_name => $os_tenant_name,
+      os_username    => $os_username,
+      os_auth_url    => $os_auth_url,
+      os_region_name => $os_region_name,
     }
   }
+
 }

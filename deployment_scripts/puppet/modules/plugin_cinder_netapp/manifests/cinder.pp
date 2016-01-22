@@ -3,16 +3,20 @@
 # cinder will used the netapp backend and the ceph or lvm (according to intial configuration)
 # as multibackend storage
 #
-class plugin_cinder_netapp::cinder
-inherits plugin_cinder_netapp::params {
-    $cinder_hash = $::fuel_settings['cinder']
-    if $::fuel_settings['cinder_netapp']['multibackend'] {
-      class { 'plugin_cinder_netapp::multibackend_cinder':} 
-    } else {
-      $section = 'DEFAULT'
-      plugin_cinder_netapp::backend::netapp{ "cinder_netapp":
-        section => $section,
-        cinder_node  => true
-      } 
-   }
+class plugin_cinder_netapp::cinder (
+  $cinder_hash = $::fuel_settings['cinder'],
+) {
+
+  include plugin_cinder_netapp::params
+
+  if $::fuel_settings['cinder_netapp']['multibackend'] {
+    class { 'plugin_cinder_netapp::multibackend_cinder': }
+  } else {
+    $section = 'DEFAULT'
+    plugin_cinder_netapp::backend::netapp{ 'cinder_netapp':
+      section     => $section,
+      cinder_node => true,
+    }
+  }
+
 }
