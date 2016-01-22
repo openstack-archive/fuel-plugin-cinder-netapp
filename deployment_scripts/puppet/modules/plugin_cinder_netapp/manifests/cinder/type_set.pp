@@ -37,10 +37,10 @@ define plugin_cinder_netapp::cinder::type_set (
   $os_username    = 'admin',
   $os_auth_url    = 'http://127.0.0.1:5000/v2.0/',
   $os_region_name = undef,
-  ) {
+) {
 
-# TODO: (xarses) This should be moved to a ruby provider so that among other
-#   reasons, the credential discovery magic can occur like in neutron.
+  # TODO: (xarses) This should be moved to a ruby provider so that among other
+  #   reasons, the credential discovery magic can occur like in neutron.
 
   $cinder_env = [
     "OS_TENANT_NAME=${os_tenant_name}",
@@ -63,4 +63,5 @@ define plugin_cinder_netapp::cinder::type_set (
     environment => concat($cinder_env, $region_env),
     require     => Package['python-cinderclient']
   }
+
 }
