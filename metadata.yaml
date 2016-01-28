@@ -11,7 +11,7 @@ fuel_version: ['7.0']
 
 authors: ['Mirantis Inc','Orange']
 licenses: ['Apache License Version 2.0']
-homepage: 'https://github.com/stackforge/fuel-plugin-cinder-netapp'
+homepage: 'https://github.com/openstack/fuel-plugin-cinder-netapp'
 groups: ['storage::cinder']
 
 

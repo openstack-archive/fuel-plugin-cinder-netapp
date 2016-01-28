@@ -245,7 +245,7 @@ Storage configuration
 cinder-netapp plugin installation
 ---------------------------------
 
-1. Clone the fuel-plugin repo from: https://github.com/stackforge/fuel-plugin-cinder-netapp.git
+1. Clone the fuel-plugin repo from: https://github.com/openstack/fuel-plugin-cinder-netapp.git
 
    ``git clone``
 
