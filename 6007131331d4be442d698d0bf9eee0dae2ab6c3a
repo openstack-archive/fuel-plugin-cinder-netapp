@@ -1,0 +1,8 @@
+Code-Review+2: Samuel BARTEL <samuel.bartel@orange.com>
+Workflow+1: Samuel BARTEL <samuel.bartel@orange.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 29 Jan 2016 09:55:19 +0000
+Reviewed-on: https://review.openstack.org/273460
+Project: openstack/fuel-plugin-cinder-netapp
+Branch: refs/heads/master
