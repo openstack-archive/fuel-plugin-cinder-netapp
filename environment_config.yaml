@@ -171,6 +171,15 @@ attributes:
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
         action: "hide"
+  nfs_mount_options:
+    value: ''
+    label: 'NFS mount options'
+    description: '(Optional) Will be used when mouning shares on the Storage and Compute nodes'
+    weight: 78
+    type: "text"
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: "hide"
 
 # Ontap Cluster
   netapp_vserver:
