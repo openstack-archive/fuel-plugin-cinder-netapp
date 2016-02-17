@@ -42,6 +42,7 @@ define plugin_cinder_netapp::backend::netapp (
     thres_avl_size_perc_start    => $::fuel_settings['cinder_netapp']['thres_avl_size_perc_start'],
     thres_avl_size_perc_stop     => $::fuel_settings['cinder_netapp']['thres_avl_size_perc_stop'],
     netapp_copyoffload_tool_path => $::fuel_settings['cinder_netapp']['netapp_copyoffload_tool_path'],
+    nfs_mount_options            => $::fuel_settings['cinder_netapp']['nfs_mount_options'],
   }
 
   $index = $::fuel_settings['cinder_netapp']['nb_share']
