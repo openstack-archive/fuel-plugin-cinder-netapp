@@ -27,4 +27,11 @@ class plugin_cinder_netapp::compute {
       fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} currently only supports osfamily RedHat and Debian")
     }
   }
+
+  if $::fuel_settings['cinder_netapp']['nfs_mount_options'] {
+    nova_config {
+      'DEFAULT/nfs_mount_options': value => "$::fuel_settings['cinder_netapp']['nfs_mount_options']";
+    }
+  }
+
 }
