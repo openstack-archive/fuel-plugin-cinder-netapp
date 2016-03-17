@@ -23,7 +23,7 @@ Requirements
 ======================= =================================
 Requirement             Version/Comment
 ======================= =================================
-Fuel                    7.0
+Fuel                    8.0
 ONTAP or E-Series       All storage family is supported.
 ======================= =================================
 

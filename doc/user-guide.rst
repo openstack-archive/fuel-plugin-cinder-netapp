@@ -1,5 +1,5 @@
 ============================================
-Guide to the Cinder NetApp plugin ver. 3.2.0
+Guide to the Cinder NetApp plugin ver. 4.0.0
 ============================================
 
 This document will guide you through the steps to install,

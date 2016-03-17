@@ -12,10 +12,10 @@ Configuring NetApp plugin
       :width: 90%
 
 #. Finish environment creation following
-   `the instructions <https://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#create-a-new-openstack-environment>`_.
+   `the instructions <https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#create-a-new-openstack-environment>`_.
 
 #. Once the environment is created, open the **Settings** tab of the Fuel Web UI
-   and scroll down the page. Select the **Cinder and NetApp integration**
+   and then **Storage**. Scroll down the page. Select the **Cinder and NetApp integration**
    checkbox:
 
    .. image:: images/select-checkbox.png
@@ -82,7 +82,7 @@ Configuring NetApp plugin
 
      .. image:: images/7mode_iscsi.png
        :width: 100%
-      
+
    - If you plan to use E-series, click **E-Series**
      radiobutton and select the only available *iscsi* option in **Netapp storage protocol**.
      You should also choose NetApp transport type (http or https).
@@ -99,10 +99,10 @@ Configuring NetApp plugin
         :width: 100%
 
 #. Using *Nodes* tab,
-   `add nodes and assign roles to them <https://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#add-nodes-to-the-environment>`_.
+   `add nodes and assign roles to them <https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#add-nodes-to-the-environment>`_.
    Please, note that all controller nodes should be configured with Cinder role.
 
-#. Press `Deploy button <https://docs.mirantis.com/openstack/fuel/fuel-7.0/user-guide.html#deploy-changes>`_
+#. Press `Deploy button <https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes>`_
    once you are done with environment configuration.
 
 #. When the deployment is done, you may perform functional testing.
