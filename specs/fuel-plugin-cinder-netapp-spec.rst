@@ -18,7 +18,7 @@ This repo contains all necessary files to build Cinder NetApp Fuel plugin.
 Problem description
 ===================
 
-This integration should be supported with the upstream version of Fuel product. Mirantis Openstack 7.0 release has Pluggable Architecture feature, that prevents developers from bringing any changes to the core product. Instead, the NetApp integration functionality can be implemented as a plugin for Fuel.
+This integration should be supported with the upstream version of Fuel product. Mirantis Openstack 8.0 release has Pluggable Architecture feature, that prevents developers from bringing any changes to the core product. Instead, the NetApp integration functionality can be implemented as a plugin for Fuel.
 
 The plugin support following storage famillies:
  - ONTAP with Cluster Mode and 7 Mode
