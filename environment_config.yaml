@@ -1,264 +1,320 @@
 attributes:
+  metadata:
+    group: 'storage'
   multibackend:
     value: false
-    label: 'Multibackend enabled'
+    label: 'Multibackend Enabled'
     description: 'NetApp driver will be used as a Cinder Multibackend feature'
-    weight: 35
-    type: "checkbox"
+    weight: 10
+    type: 'checkbox'
 
 # Storage Type
   netapp_storage_family:
-    value: "ontap_cluster"
+    value: 'ontap_cluster'
     values:
-        - data: "ontap_cluster"
-          label: "Ontap Cluster"
-          description: "Data ONTAP operating in Clustered storage family"
-        - data: "ontap_7mode"
-          label: "Ontap 7mode"
-          description: "Data ONTAP operating in 7Mode storage family"
-        - data: "eseries"
-          label: "E-Series"
-          description: "E-Series storage family"
-    label: "Netapp storage family"
-    weight: 40
-    type: "radio"
+        - data: 'ontap_cluster'
+          label: 'Ontap Cluster'
+          description: 'Data ONTAP operating in Clustered storage family'
+        - data: 'ontap_7mode'
+          label: 'Ontap 7-Mode'
+          description: 'Data ONTAP operating in 7-Mode storage family'
+        - data: 'eseries'
+          label: 'E-Series'
+          description: 'E-Series storage family'
+    label: 'Netapp Storage Family'
+    weight: 11
+    type: 'radio'
   netapp_storage_protocol:
-    value: "iscsi"
+    value: 'iscsi'
     values:
-        - data: "iscsi"
-          label: "iscsi"
-          description: ""
-        - data: "nfs"
-          label: "nfs"
-          description: ""
+        - data: 'iscsi'
+          label: 'iSCSI'
+          description: ''
+        - data: 'nfs'
+          label: 'NFS'
+          description: ''
           restrictions:
             - condition: "settings:cinder_netapp.netapp_storage_family.value == 'eseries'"
-              action: "hide"
-    label: "Netapp storage protocol"
+              action: 'hide'
+    label: 'Netapp Storage Protocol'
     description: 'The storage protocol to be used on the data path with the storage system'
-    weight: 42
-    type: "radio"
+    weight: 12
+    type: 'radio'
 
 # Authorisation
   netapp_login:
     value: ''
     label: 'Username'
-    description: 'Administrative user account name used to access the storage system or proxy server.'
-    weight: 45
-    type: "text"
+    description: 'Administrative user account name used to access the storage system or proxy server'
+    weight: 21
+    type: 'text'
   netapp_password:
     value: ''
     label: 'Password'
-    description: 'Password for the administrative user account specified in the netapp_login option.'
-    weight: 46
-    type: "password"
+    description: 'Password for the administrative user account'
+    weight: 22
+    type: 'password'
 
 # Connection
   netapp_server_hostname:
     value: ''
-    label: 'NetApp Hostname/IP'
-    description: 'The hostname (or IP address) for the storage system or proxy server.'
-    weight: 55
-    type: "text"
+    label: 'NetApp Hostname'
+    description: 'The hostname or IP address for the storage system or proxy server'
+    weight: 31
+    type: 'text'
   netapp_server_port:
     value: ''
-    label: 'NetApp server port'
-    description: 'The TCP port to use for communication with the storage system or proxy server. If not specified, Data ONTAP drivers will use 80 for HTTP and 443 for HTTPS; E-Series will use 8080 for HTTP and 8443 for HTTPS.'
-    weight: 56
-    type: "text"
+    label: 'NetApp Server Port'
+    description: 'The TCP port to use for communication with the storage system or proxy server. If not specified, Data ONTAP drivers will use 80 for HTTP and 443 for HTTPS; E-Series will use 8080 for HTTP and 8443 for HTTPS'
+    weight: 32
+    type: 'text'
   netapp_transport_type:
-    value: "http"
+    value: 'http'
     values:
-        - data: "http"
-          label: "http"
-          description: ""
-        - data: "https"
-          label: "https"
-          description: ""
-    label: "Netapp transport type"
+        - data: 'http'
+          label: 'http'
+          description: ''
+        - data: 'https'
+          label: 'https'
+          description: ''
+    label: 'Netapp Transport Type'
     description: 'The transport protocol used for communication with the storage system or proxy server'
-    weight: 57
-    type: "radio"
+    weight: 33
+    type: 'radio'
 
-# NFS
+# NFS Shares
   nfs_server_ip:
     value: ''
     label: 'NetApp NFS server'
-    description: 'The hostname (or IP address) for NFS server started on NetApp apliance'
-    weight: 70
-    type: "text"
+    description: 'The hostname or IP address for NFS server started on NetApp apliance'
+    weight: 41
+    type: 'text'
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
-        action: "hide"
+        action: 'hide'
   nb_share:
-    type: "select"
-    weight: 71
-    value: "1"
-    label: "NFS shares"
-    description: "Number of Netapp NFS shares"
+    type: 'select'
+    weight: 42
+    value: '1'
+    label: 'NFS shares'
+    description: 'Number of Netapp NFS shares'
     values:
-      - data: "1"
-        label: "1"
-      - data: "2"
-        label: "2"
-      - data: "3"
-        label: "3"
-      - data: "4"
-        label: "4"
+      - data: '1'
+        label: '1'
+      - data: '2'
+        label: '2'
+      - data: '3'
+        label: '3'
+      - data: '4'
+        label: '4'
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
-        action: "hide"
+        action: 'hide'
   nfs_server_share1:
     value: ''
     label: 'NFS share'
-    description: 'The NFS share path (e.g. /vol2)'
-    weight: 72
-    type: "text"
+    description: 'The NFS share path (e.g. /vol1)'
+    weight: 43
+    type: 'text'
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
-        action: "hide"
+        action: 'hide'
   nfs_server_share2:
     value: ''
     label: 'NFS share 2'
     description: 'The NFS share path (e.g. /vol2)'
-    weight: 73
-    type: "text"
+    weight: 44
+    type: 'text'
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs' or settings:cinder_netapp.nb_share.value != '2' and settings:cinder_netapp.nb_share.value != '3' and settings:cinder_netapp.nb_share.value != '4'"
-        action: "hide"
+        action: 'hide'
   nfs_server_share3:
     value: ''
     label: 'NFS share 3'
-    description: 'The NFS share path (e.g. /vol2)'
-    weight: 74
-    type: "text"
+    description: 'The NFS share path (e.g. /vol3)'
+    weight: 45
+    type: 'text'
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs' or settings:cinder_netapp.nb_share.value != '3' and settings:cinder_netapp.nb_share.value != '4'"
         action: "hide"
   nfs_server_share4:
     value: ''
     label: 'NFS share 4'
-    description: 'The NFS share path (e.g. /vol2)'
-    weight: 75
-    type: "text"
+    description: 'The NFS share path (e.g. /vol4)'
+    weight: 46
+    type: 'text'
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs' or settings:cinder_netapp.nb_share.value != '4'"
-        action: "hide"
-  expiry_thres_minutes:
-    value: '720'
-    label: 'NFS expiry thres minutes'
-    description: 'This option specifies the threshold for last access time for images in the NFS image cache (NFS protocol only)'
-    weight: 76
-    type: "text"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
-        action: "hide"
-  thres_avil_size_perc_start:
-    value: '20'
-    label: 'NFS thres avl size perc start'
-    description: 'The percentage of available space from which the NFS image cache will be cleaned (NFS protocol only)'
-    weight: 77
-    type: "text"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
-        action: "hide"
-  thres_avil_size_perc_stop:
-    value: '60'
-    label: 'NFS thres avl size perc stop'
-    description: 'The percentage of available space from which the driver will stop cleaning the NFS image cache (NFS protocol only)'
-    weight: 78
-    type: "text"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
-        action: "hide"
-  nfs_mount_options:
-    value: ''
-    label: 'NFS mount options'
-    description: '(Optional) Will be used when mouning shares on the Storage and Compute nodes'
-    weight: 79
-    type: "text"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
-        action: "hide"
+        action: 'hide'
 
 # Ontap Cluster
   netapp_vserver:
     value: ''
-    label: 'CMode vserver'
-    description: 'This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur. (Cluster-Mode only and mandatory for NFS Storage protocol)'
-    weight: 80
-    type: "text"
+    label: 'Vserver'
+    description: 'This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur'
+    weight: 51
+    type: 'text'
     restrictions:
       - condition: "settings:cinder_netapp.netapp_storage_family.value != 'ontap_cluster'"
-        action: "hide"
+        action: 'hide'
 
-# Ontap Cluster with NFS
-  netapp_copyoffload_tool_path:
-    value: ''
-    label: 'CMode copyoffload tool path'
-    description: '(Optionnal) This option specifies the path of the Netapp copy offload tool binary (NFS protocol only)'
-    weight: 81
-    type: "text"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs' or settings:cinder_netapp.netapp_storage_family.value != 'ontap_cluster'"
-        action: "hide"
-
-# Ontap 7Mode with iSCSI
+# 7-Mode
   netapp_vfiler:
     value: ''
-    label: '7Mode vfiler'
-    description: '(Optionnal) The vFiler unti on which provisioning of block storage volumes will be done (iSCSI configuration in 7-Mode only)'
-    weight: 81
-    type: "text"
+    label: 'vFiler'
+    description: '(Optionnal) The vFiler unit on which provisioning of block storage volumes will be done'
+    weight: 51
+    type: 'text'
     restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value != 'ontap_7mode'"
-        action: "hide"
-  netapp_volume_list:
-    value: ''
-    label: '7Mode volume list'
-    description: '(Optionnal)  This option is used to restrict provisionning to the specified controller volumes (iSCSI configuration in 7-Mode only)'
-    weight: 82
-    type: "text"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value != 'ontap_7mode'"
-        action: "hide"
-
-# Ontap Cluster or 7Mode with iSCSI
-  netapp_size_multiplier:
-    value: '1.2'
-    label: 'NetApp size multiplier'
-    description: 'Mutiplication factor used to chack available space on the virtual storage server (iSCSI configuration only)'
-    weight: 83
-    type: "text"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value == 'eseries'"
-        action: "hide"
+      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'ontap_7mode'"
+        action: 'hide'
 
 # E-Series
   netapp_controller_ips:
     value: ''
-    label: 'E-Series controller IPs'
-    description: 'This option is used to restrict provisioning to the specified controllers. Specify the value of this option to be a comma separated list of controller hostnames or IP addresses to be used for provisioning.'
-    weight: 80
-    type: "text"
+    label: 'Controller IPs'
+    description: 'This option is used to restrict provisioning to the specified controllers. Specify the value of this option to be a comma separated list of controller management hostnames or IP addresses to be used for provisioning'
+    weight: 51
+    type: 'text'
     restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'eseries' or settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi'"
-        action: "hide"
+      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'eseries'"
+        action: 'hide'
   netapp_sa_password:
     value: ''
-    label: 'E-Series storage array password'
-    description: 'Password for the NetApp E-Series storage array.'
-    weight: 81
-    type: "password"
+    label: 'Storage Array Password'
+    description: 'Password for the NetApp E-Series storage array'
+    weight: 52
+    type: 'password'
     restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'eseries' or settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi'"
+      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'eseries'"
+        action: 'hide'
+  netapp_eseries_host_type:
+    value: 'linux_dm_mp'
+    label: 'Host Type'
+    description: '(Optionnal) This option defines the type of operating system for all initiators that can access a LUN'
+    weight: 62
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'eseries'"
+        action: 'hide'
+  netapp_enable_multiattach:
+    value: false
+    label: 'Multiattach'
+    description: '(Optionnal) This option specifies whether the driver should allow operations that require multiple attachments to a volume'
+    weight: 63
+    type: 'checkbox'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'eseries'"
         action: "hide"
-  netapp_storage_pools:
+
+# NFS Options
+  nfs_mount_options:
     value: ''
-    label: 'E-Series storage pools'
-    description: 'This option is used to restrict provisioning to the specified storage pools. Only dynamic disk pools are currently supported. Specify the value of this option to be a comma separated list of disk pool names to be used for provisioning.'
-    weight: 82
-    type: "text"
+    label: 'NFS Mount Options'
+    description: '(Optional) Will be used when mouning shares on the Storage and Compute nodes'
+    weight: 61
+    type: 'text'
     restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_family.value != 'eseries' or settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi'"
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: 'hide'
+  thres_avl_size_perc_start:
+    value: '20'
+    label: 'Thres Avl Size Perc Start'
+    description: '(Optionnal) If the percentage of available space for an NFS share has dropped below the value specified by this option, the NFS image cache will be cleaned'
+    weight: 62
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
         action: "hide"
+  thres_avl_size_perc_stop:
+    value: '60'
+    label: 'Thres Avl Size Perc Stop'
+    description: '(Optionnal) When the percentage of available space on an NFS share has reached the percentage specified by this option, the driver will stop clearing files from the NFS image cache'
+    weight: 63
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: 'hide'
+  expiry_thres_minutes:
+    value: '720'
+    label: 'Expiry Thres Minutes'
+    description: '(Optionnal) This option specifies the threshold for last access time for images in the NFS image cache'
+    weight: 64
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs'"
+        action: 'hide'
+
+# Ontap Cluster with NFS
+  netapp_copyoffload_tool_path:
+    value: ''
+    label: 'Copyoffload Tool Path'
+    description: '(Optionnal) This option specifies the path of the NetApp copy offload tool binary'
+    weight: 65
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'nfs' or settings:cinder_netapp.netapp_storage_family.value != 'ontap_cluster'"
+        action: 'hide'
+
+# iSCSI
+  netapp_pool_name_search_pattern:
+    value: '(.+)'
+    label: 'Pool Search Pattern'
+    description: '(Optionnal) It is used to restrict provisioning to the specified volume groups or disk pools. Specify the value of this option as a regular expression which will be applied to the names of volume groups or disk pools from the storage backend which represent pools in Cinder'
+    weight: 61
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi'"
+        action: "hide"
+  use_multipath_for_image_xfer:
+    value: false
+    label: 'Multipath for Image Xfer'
+    description: '(Optionnal) Using this option will permit Cinder to use multiple paths for increased bandwidth. It affects Nova settings'
+    weight: 65
+    type: 'checkbox'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi'"
+        action: 'hide'
+
+# iSCSI with ONTAP
+  netapp_host_type:
+    value: 'linux'
+    label: 'Host Type'
+    description: '(Optionnal) This option defines the type of operating system for all initiators that can access a LUN'
+    weight: 62
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value == 'eseries'"
+        action: "hide"
+  netapp_lun_ostype:
+    value: 'linux'
+    label: 'LUN OS type'
+    description: '(Optionnal) This option defines the type of operating system that will access a LUN exported from Data ONTAP'
+    weight: 63
+    type: 'text'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value == 'eseries'"
+        action: 'hide'
+  netapp_lun_space_reservation:
+    value: true
+    label: 'LUN Space Reservation'
+    description: '(Optionnal) This option specifies whether space will be reserved when creating Cinder volumes on NetApp backends using the iSCSI protocol'
+    weight: 64
+    type: 'checkbox'
+    restrictions:
+      - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value == 'eseries'"
+        action: 'hide'
+
+# Common
+  reserved_percentage:
+    value: '0'
+    label: 'Reserved Percentage'
+    description: '(Optionnal) This option represents the amount of total capacity of a storage pool that will be reserved and cannot be utilized for provisioning Cinder volumes'
+    weight: 71
+    type: 'text'
+  max_oversubscription_ratio:
+    value: '1.0'
+    label: 'Oversubscription Ratio'
+    description: '(Optionnal) This option is defined as a float, and specifies the amount of over-provisioning to allow when thin provisioning is being used in the storage pool. A value of 1.0 will mean that the provisioned capacity will not be able to exceed the total capacity, while larger values will result in increased levels of allowed over-provisioning'
+    weight: 72
+    type: 'text'
