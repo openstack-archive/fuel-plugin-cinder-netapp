@@ -1,65 +1,84 @@
-# this can be used to create a netapp volume backend for cinder
-#
-# [section] name of the section of cinder.conf on which netapp parameters should be inserted
-# [backends] name of the other backends in a multibackend config (optional)
-#
-# === Examples
-#
-#  plugin_cinder_netapp::backend::netapp{ 'netapp':
-#    backends => Lvm1,
-#  }
-#
 define plugin_cinder_netapp::backend::netapp (
-  $section       = $name,
-  $backends      = '',
-  $backend_name  = 'cinder_netapp',
-  $mutlibackends = false,
-  $cinder_node   = false,
+  $netapp_backend_name = $name,
+  $cinder_netapp       = $plugin_cinder_netapp::params::cinder_netapp,
+  $backend_name        = undef,
 ) {
 
+  include plugin_cinder_netapp::params
   include cinder::client
 
   # Ensure that $ symbole is correctly escaped in netapp password
-  $netapp_password = regsubst($::fuel_settings['cinder_netapp']['netapp_password'],'\$','$$','G')
+  $netapp_password = regsubst($cinder_netapp['netapp_password'],'\$','$$','G')
 
-  cinder::backend::netapp { $backend_name:
-    volume_backend_name          => $section,
-    netapp_login                 => $::fuel_settings['cinder_netapp']['netapp_login'],
+  cinder::backend::netapp { "$netapp_backend_name":
+    volume_backend_name          => 'cinder_netapp',
+    netapp_login                 => $cinder_netapp['netapp_login'],
     netapp_password              => $netapp_password,
-    netapp_server_hostname       => $::fuel_settings['cinder_netapp']['netapp_server_hostname'],
-    netapp_server_port           => $::fuel_settings['cinder_netapp']['netapp_server_port'],
-    netapp_transport_type        => $::fuel_settings['cinder_netapp']['netapp_transport_type'],
-    netapp_storage_family        => $::fuel_settings['cinder_netapp']['netapp_storage_family'],
-    netapp_storage_protocol      => $::fuel_settings['cinder_netapp']['netapp_storage_protocol'],
-    netapp_vserver               => $::fuel_settings['cinder_netapp']['netapp_vserver'],
-    netapp_controller_ips        => $::fuel_settings['cinder_netapp']['netapp_controller_ips'],
-    netapp_sa_password           => $::fuel_settings['cinder_netapp']['netapp_sa_password'],
-    netapp_storage_pools         => $::fuel_settings['cinder_netapp']['netapp_storage_pools'],
-    netapp_size_multiplier       => $::fuel_settings['cinder_netapp']['netapp_size_multiplier'],
-    netapp_vfiler                => $::fuel_settings['cinder_netapp']['netapp_vfiler'],
-    netapp_volume_list           => $::fuel_settings['cinder_netapp']['netapp_volume_list'],
-    expiry_thres_minutes         => $::fuel_settings['cinder_netapp']['expiry_thres_minutes'],
-    thres_avl_size_perc_start    => $::fuel_settings['cinder_netapp']['thres_avl_size_perc_start'],
-    thres_avl_size_perc_stop     => $::fuel_settings['cinder_netapp']['thres_avl_size_perc_stop'],
-    netapp_copyoffload_tool_path => $::fuel_settings['cinder_netapp']['netapp_copyoffload_tool_path'],
-    nfs_mount_options            => $::fuel_settings['cinder_netapp']['nfs_mount_options'],
+    netapp_server_hostname       => $cinder_netapp['netapp_server_hostname'],
+    netapp_server_port           => $cinder_netapp['netapp_server_port'],
+    netapp_transport_type        => $cinder_netapp['netapp_transport_type'],
+    netapp_storage_family        => $cinder_netapp['netapp_storage_family'],
+    netapp_storage_protocol      => $cinder_netapp['netapp_storage_protocol'],
+    netapp_vserver               => $cinder_netapp['netapp_vserver'],
+    netapp_vfiler                => $cinder_netapp['netapp_vfiler'],
+    netapp_controller_ips        => $cinder_netapp['netapp_controller_ips'],
+    netapp_sa_password           => $cinder_netapp['netapp_sa_password'],
+    thres_avl_size_perc_start    => $cinder_netapp['thres_avl_size_perc_start'],
+    thres_avl_size_perc_stop     => $cinder_netapp['thres_avl_size_perc_stop'],
+    expiry_thres_minutes         => $cinder_netapp['expiry_thres_minutes'],
+    netapp_copyoffload_tool_path => $cinder_netapp['netapp_copyoffload_tool_path'],
+    nfs_mount_options            => $cinder_netapp['nfs_mount_options'],
   }
 
-  $index = $::fuel_settings['cinder_netapp']['nb_share']
-
-  if $mutlibackends {
-    cinder_config {
-      'DEFAULT/enabled_backends': value => "${backends},${backend_name}";
-    }
+  # Use it while NetApp driver changes are not implemented in Fuel-library
+  if ($cinder_netapp['netapp_storage_family']) == 'eseries' {
+    $host_type = $cinder_netapp['netapp_eseries_host_type']
   } else {
+    $host_type = $cinder_netapp['netapp_host_type']
+  }
+
+  if ($cinder_netapp['netapp_lun_space_reservation']) {
+    $lun_space_reservation = 'enabled'
+  } else {
+    $lun_space_reservation = 'disabled'
+  }
+
+  cinder_config {
+    "$netapp_backend_name/host":                            value => 'str:netapp'; # for NetApp HA
+    "$netapp_backend_name/netapp_host_type":                value => $host_type;
+    "$netapp_backend_name/netapp_lun_space_reservation":    value => $lun_space_reservation;
+    "$netapp_backend_name/netapp_lun_ostype":               value => $cinder_netapp['netapp_lun_ostype'];
+    "$netapp_backend_name/use_multipath_for_image_xfer":    value => $cinder_netapp['use_multipath_for_image_xfer'];
+    "$netapp_backend_name/netapp_enable_multiattach":       value => $cinder_netapp['netapp_enable_multiattach'];
+    "$netapp_backend_name/netapp_pool_name_search_pattern": value => $cinder_netapp['netapp_pool_name_search_pattern'];
+    "$netapp_backend_name/reserved_percentage":             value => $cinder_netapp['reserved_percentage'];
+    "$netapp_backend_name/max_oversubscription_ratio":      value => $cinder_netapp['max_oversubscription_ratio'];
+  }
+  # ^^^
+
+  if ($cinder_netapp['multibackend']) {
     cinder_config {
-      'DEFAULT/enabled_backends': value => "${backend_name}";
+      'DEFAULT/enabled_backends': value => "${backend_name},${netapp_backend_name}";
+      'DEFAULT/scheduler_driver': value => 'cinder.scheduler.filter_scheduler.FilterScheduler';
     }
   }
 
-  if $cinder_node {
-    plugin_cinder_netapp::backend::share{ "share-${index}":
-      index => $index
+  if ($cinder_netapp['netapp_storage_protocol']) == 'nfs' {
+    package { 'nfs-common':
+      before => Cinder::Backend::Netapp[$netapp_backend_name],
+    }
+
+    $index = $cinder_netapp['nb_share']
+    plugin_cinder_netapp::backend::share { "share-$index":
+      index         => $index,
+      cinder_netapp => $cinder_netapp,
+    }
+  }
+
+  # To create a root volume during an instance spawning
+  if ($cinder_netapp['netapp_storage_protocol']) == 'iscsi' {
+    package { 'open-iscsi':
+      before => Cinder::Backend::Netapp[$netapp_backend_name],
     }
   }
 
