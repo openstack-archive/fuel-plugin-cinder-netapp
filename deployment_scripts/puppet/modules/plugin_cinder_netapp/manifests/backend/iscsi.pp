@@ -16,7 +16,7 @@ class plugin_cinder_netapp::backend::iscsi (
   $volume_group     = 'cinder',
   $iscsi_ip_address =  $::internal_address,
   $iscsi_helper     =  $::cinder::params::iscsi_helper,
-) {
+) inherits cinder::params {
 
   cinder_config {
     'cinder_iscsi/volume_backend_name': value => 'cinder_iscsi';

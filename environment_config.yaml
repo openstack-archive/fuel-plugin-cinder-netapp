@@ -1,4 +1,6 @@
 attributes:
+  metadata:
+    group: 'storage'
   multibackend:
     value: false
     label: 'Multibackend enabled'
