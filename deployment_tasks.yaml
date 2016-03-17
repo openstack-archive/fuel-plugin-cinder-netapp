@@ -1,30 +1,32 @@
-# Deployment tasks
-- id: controller-netapp
+- id: netapp_hiera_override
   type: puppet
-  role: [primary-controller, controller]
-  required_for: [post_deployment_end]
-  requires: [post_deployment_start]
+  version: 2.0.0
+  groups: [primary-controller, controller]
+  requires: [openstack-cinder, deploy_start]
+  required_for: [create-cinder-types, deploy_end]
   parameters:
-    puppet_manifest: puppet/manifests/site_controller.pp
-    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    puppet_manifest: puppet/manifests/hiera_override.pp
+    puppet_modules:  /etc/puppet/modules
     timeout: 360
 
-- id: compute-netapp
+- id: netapp_cinder
   type: puppet
-  role: [compute]
-  required_for: [post_deployment_end]
-  requires: [post_deployment_start]
+  version: 2.0.0
+  groups: [cinder]
+  requires: [top-role-cinder, deploy_start]
+  required_for: [deploy_end]
   parameters:
-    puppet_manifest: puppet/manifests/site_compute.pp
-    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    puppet_manifest: puppet/manifests/site.pp
+    puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
-- id: cinder-netapp
+- id: netapp_compute
   type: puppet
-  role: [cinder]
-  required_for: [post_deployment_end]
-  requires: [post_deployment_start]
+  version: 2.0.0
+  groups: [compute]
+  requires: [top-role-compute, deploy_start]
+  required_for: [deploy_end]
   parameters:
-    puppet_manifest: puppet/manifests/site_cinder.pp
-    puppet_modules:  "puppet/modules/:/etc/puppet/modules/"
+    puppet_manifest: puppet/manifests/compute.pp
+    puppet_modules:  /etc/puppet/modules
     timeout: 360
