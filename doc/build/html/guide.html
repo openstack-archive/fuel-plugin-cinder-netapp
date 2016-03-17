@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuring NetApp plugin &mdash; NetApp plugin for Fuel 4.0-4.0.0-1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '4.0-4.0.0-1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="NetApp plugin for Fuel 4.0-4.0.0-1 documentation" href="index.html" />
+    <link rel="next" title="Licenses" href="licenses.html" />
+    <link rel="prev" title="Installing NetApp plugin" href="installation.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>Once the Fuel Cinder NetApp  plugin has been installed, you can
+create OpenStack environments that use NetApp storage as a Cinder backend.</p>
+<div class="section" id="configuring-netapp-plugin">
+<h1>Configuring NetApp plugin<a class="headerlink" href="#configuring-netapp-plugin" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">Create an OpenStack environment using the Fuel UI wizard:</p>
+<a class="reference internal image-reference" href="_images/create_env.png"><img alt="_images/create_env.png" src="_images/create_env.png" style="width: 90%;" /></a>
+</li>
+<li><p class="first">Finish environment creation following
+<a class="reference external" href="https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#create-a-new-openstack-environment">the instructions</a>.</p>
+</li>
+<li><p class="first">Once the environment is created, open the <strong>Settings</strong> tab of the Fuel Web UI
+and then <strong>Storage</strong>. Scroll down the page. Select the <strong>Cinder and NetApp integration</strong>
+checkbox:</p>
+<a class="reference internal image-reference" href="_images/select-checkbox.png"><img alt="_images/select-checkbox.png" src="_images/select-checkbox.png" style="width: 40%;" /></a>
+</li>
+<li><p class="first">Configure the plugin.Select <strong>Multibackend enabled</strong> checkbox
+if you would like NetApp driver to be used as the Cinder Multibackend feature:</p>
+<a class="reference internal image-reference" href="_images/multibackend.png"><img alt="_images/multibackend.png" src="_images/multibackend.png" style="width: 50%;" /></a>
+</li>
+<li><p class="first">Choose storage family and storage protocol. Several options are available.</p>
+<ul>
+<li><p class="first">If you plan to use ONTAP cluster mode through NFS, click <strong>Ontap Cluster</strong>
+radiobutton and select <em>nfs</em> option in <strong>Netapp storage protocol</strong>.
+You should also choose NetApp transport type (http or https).
+Specify the following parameters in the text fields:</p>
+<ul class="simple">
+<li>Netapp username</li>
+<li>Netapp password</li>
+<li>Netapp server hostname</li>
+<li>NFS server</li>
+<li>NFS share(s)</li>
+<li>Netapp Vserver</li>
+</ul>
+<a class="reference internal image-reference" href="_images/cmode_nfs.png"><img alt="_images/cmode_nfs.png" src="_images/cmode_nfs.png" style="width: 100%;" /></a>
+</li>
+<li><p class="first">If you plan to use ONTAP cluster mode through iSCSI, click <strong>Ontap Cluster</strong>
+radiobutton and select <em>iscsi</em> option in <strong>Netapp storage protocol</strong>.
+You should also choose NetApp transport type (http or https).
+Specify the following parameters in the text fields:</p>
+<ul class="simple">
+<li>Netapp username</li>
+<li>Netapp password</li>
+<li>Netapp server hostname</li>
+<li>Netapp Vserver</li>
+</ul>
+<a class="reference internal image-reference" href="_images/cmode_iscsi.png"><img alt="_images/cmode_iscsi.png" src="_images/cmode_iscsi.png" style="width: 100%;" /></a>
+</li>
+<li><p class="first">If you plan to use ONTAP 7 mode through NFS, click <strong>Ontap 7mode</strong>
+radiobutton and select <em>nfs</em> option in <strong>Netapp storage protocol</strong>.
+You should also choose NetApp transport type (http or https).
+Specify the following parameters in the text fields:</p>
+<ul class="simple">
+<li>Netapp username</li>
+<li>Netapp password</li>
+<li>Netapp server hostname</li>
+<li>NFS server</li>
+<li>NFS share(s)</li>
+</ul>
+<a class="reference internal image-reference" href="_images/7mode_nfs.png"><img alt="_images/7mode_nfs.png" src="_images/7mode_nfs.png" style="width: 100%;" /></a>
+</li>
+<li><p class="first">If you plan to use ONTAP 7 mode through iSCSI, click <strong>Ontap 7mode</strong>
+radiobutton and select <em>iscsi</em> option in <strong>Netapp storage protocol</strong>.
+You should also choose NetApp transport type (http or https).
+Specify the following parameters in the text fields:</p>
+</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Netapp username</li>
+<li>Netapp password</li>
+<li>Netapp server hostname</li>
+</ul>
+<a class="reference internal image-reference" href="_images/7mode_iscsi.png"><img alt="_images/7mode_iscsi.png" src="_images/7mode_iscsi.png" style="width: 100%;" /></a>
+</div></blockquote>
+<ul>
+<li><p class="first">If you plan to use E-series, click <strong>E-Series</strong>
+radiobutton and select the only available <em>iscsi</em> option in <strong>Netapp storage protocol</strong>.
+You should also choose NetApp transport type (http or https).
+Specify the following parameters in the text fields: please specify the following parameters:</p>
+<ul class="simple">
+<li>Netapp username</li>
+<li>Netapp password</li>
+<li>Netapp server hostname</li>
+<li>Netapp controller IPs</li>
+<li>Netapp SA password</li>
+<li>Storage pools</li>
+</ul>
+<a class="reference internal image-reference" href="_images/eseries.png"><img alt="_images/eseries.png" src="_images/eseries.png" style="width: 100%;" /></a>
+</li>
+</ul>
+</li>
+<li><p class="first">Using <em>Nodes</em> tab,
+<a class="reference external" href="https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#add-nodes-to-the-environment">add nodes and assign roles to them</a>.
+Please, note that all controller nodes should be configured with Cinder role.</p>
+</li>
+<li><p class="first">Press <a class="reference external" href="https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes">Deploy button</a>
+once you are done with environment configuration.</p>
+</li>
+<li><p class="first">When the deployment is done, you may perform functional testing.
+You can find instructions in <a class="reference external" href="http://content.mirantis.com/Mirantis-NetApp-Reference-Architecture-Landing-Page.html">NetApp Mirantis Unlocked Reference Architecture</a>, paragraph 8.3.</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installing NetApp plugin</a></li>
+      <li>Next: <a href="licenses.html" title="next chapter">Licenses</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/guide.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Mirantis Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/guide.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
