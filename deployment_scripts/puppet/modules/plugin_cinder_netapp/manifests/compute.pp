@@ -30,7 +30,7 @@ class plugin_cinder_netapp::compute {
 
   if $::fuel_settings['cinder_netapp']['nfs_mount_options'] {
     nova_config {
-      'DEFAULT/nfs_mount_options': value => $::fuel_settings['cinder_netapp']['nfs_mount_options'];
+      'libvirt/nfs_mount_options': value => $::fuel_settings['cinder_netapp']['nfs_mount_options'];
     }
   }
 
