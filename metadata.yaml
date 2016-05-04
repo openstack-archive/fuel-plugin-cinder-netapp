@@ -3,7 +3,7 @@ name: cinder_netapp
 # Human-readable name for your plugin
 title: Cinder and NetApp integration
 # Plugin version
-version: 3.2.0
+version: 3.2.1
 # Description
 description: Enable to use NetApp nfs driver as a Cinder backend
 # Required fuel version
