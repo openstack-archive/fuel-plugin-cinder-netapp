@@ -42,7 +42,7 @@ class plugin_cinder_netapp::backend::rbd(
            "cinder_rbd/rbd_user": value => $rbd_user;
            "cinder_rbd/rbd_pool": value => $rbd_pool;
            "cinder_rbd/rbd_max_clone_depth": value => $rbd_max_clone_depth;
-           "cinder_rbd{name}/rbd_flatten_volume_from_snapshot": value => $rbd_flatten_volume_from_snapshot;
+           "cinder_rbd/rbd_flatten_volume_from_snapshot": value => $rbd_flatten_volume_from_snapshot;
            "cinder_rbd/host": value => "rbd:${rbd_pool}";
          }
 }
