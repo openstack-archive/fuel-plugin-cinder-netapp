@@ -20,7 +20,7 @@ Problem description
 
 This integration should be supported with the upstream version of Fuel product. Mirantis Openstack 8.0 release has Pluggable Architecture feature, that prevents developers from bringing any changes to the core product. Instead, the NetApp integration functionality can be implemented as a plugin for Fuel.
 
-The plugin support following storage famillies:
+The plugin support following storage families:
  - ONTAP with Cluster Mode and 7 Mode
  - E-series
 
@@ -167,7 +167,7 @@ Upgrading should be tested explicitly with this plugin installed and NetApp stor
 Security impact
 ---------------
 
-This plugin uses credentials that were used during NetApp cluster setup. No inpact on OpenStack services.
+This plugin uses credentials that were used during NetApp cluster setup. No impact on OpenStack services.
 
 Notifications impact
 --------------------

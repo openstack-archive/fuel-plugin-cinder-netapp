@@ -11,7 +11,7 @@ create OpenStack environments that use NetApp storage as a Cinder backend.
       :width: 90%
 
 #. Finish environment creation following
-   `the instructions <https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#create-a-new-openstack-environment>`_.
+   `the instructions <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/create-environment/start-create-env.html>`_.
 
 #. Once the environment is created, open the **Settings** tab of the Fuel Web UI
    and then **Storage**. Scroll down the page. Select the **Cinder and NetApp integration**
@@ -29,7 +29,7 @@ create OpenStack environments that use NetApp storage as a Cinder backend.
 #. Choose storage family and storage protocol. Several options are available.
 
    - If you plan to use ONTAP cluster mode through NFS, click **Ontap Cluster**
-     radiobutton and select *nfs* option in **Netapp storage protocol**.
+     radio button and select *nfs* option in **Netapp storage protocol**.
      You should also choose NetApp transport type (http or https).
      Specify the following parameters in the text fields:
 
@@ -97,7 +97,7 @@ create OpenStack environments that use NetApp storage as a Cinder backend.
         :width: 100%
 
 #. Using *Nodes* tab,
-   `add nodes and assign roles to them <https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#add-nodes-to-the-environment>`_.
+   `add nodes and assign roles to them <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/add-nodes.html>`_.
    Please, note that all controller nodes should be configured with Cinder role.
 
 #. This step is needed only when local fuel mirrors are used
@@ -110,7 +110,7 @@ create OpenStack environments that use NetApp storage as a Cinder backend.
         - "open-iscsi"
         - "multipath-tools"
 
-#. Press `Deploy button <https://docs.mirantis.com/openstack/fuel/fuel-8.0/user-guide.html#deploy-changes>`_
+#. Press `Deploy button <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment/deploy-changes.html>`_
    once you are done with environment configuration.
 
 #. When the deployment is done, you may perform functional testing.

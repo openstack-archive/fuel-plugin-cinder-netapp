@@ -7,7 +7,7 @@ Overview
 NetApp plugin can replace the Cinder LVM backend by Cinder Netapp Backend or work in parallel when deployed with multi-backend enabled.
 LVM is the default volume backend that uses local volumes managed by LVM.
 
-The plugin support following storage familly mode:
+The plugin support following storage family mode:
  - ONTAP 7-Mode
  - ONTAP Cluster Mode
  - E-Series
@@ -21,11 +21,15 @@ Requirements
 | Requirement                                                                              | Version/Comment                                         |
 |------------------------------------------------------------------------------------------|---------------------------------------------------------|
 | Mirantis Openstack compatibility                                                         | 8.0                                                     |
-| Netapp filer or appliance is reacheble via one of the Mirantis OpenStack networks        | ONTAP or E-Series storage family with NTF\iSCSI enabled |
+| Netapp filer or appliance is reachable via one of the Mirantis OpenStack networks        | ONTAP or E-Series storage family with NTF\iSCSI enabled |
 
 
 Release Notes
 -------------
+
+**4.1.0**
+
+* Rewrite fields in UI
 
 **4.0.0**
 
@@ -33,7 +37,7 @@ Release Notes
 
 **3.2.0**
 
-* add E-Series storage familly support
+* add E-Series storage family support
 
 * fix the plugin UI
 
@@ -59,7 +63,7 @@ Release Notes
 
 **1.1.0**
 
-* add 7 mode storage familly support
+* add 7 mode storage family support
 
 **1.0.0**
 
