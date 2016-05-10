@@ -13,14 +13,14 @@ attributes:
     value: 'ontap_cluster'
     values:
         - data: 'ontap_cluster'
-          label: 'Ontap Cluster'
-          description: 'Data ONTAP operating in Clustered storage family'
+          label: 'Clustered Data ONTAP'
+          description: 'Feature-rich enterprise storage backend'
         - data: 'ontap_7mode'
-          label: 'Ontap 7-Mode'
-          description: 'Data ONTAP operating in 7-Mode storage family'
+          label: 'Data ONTAP 7-Mode'
+          description: 'Legacy enterprise storage backend. Replaced by Clustered Data ONTAP'
         - data: 'eseries'
-          label: 'E-Series'
-          description: 'E-Series storage family'
+          label: 'E-Series/EF-Series'
+          description: 'High performance storage'
     label: 'Netapp Storage Family'
     weight: 11
     type: 'radio'
@@ -58,13 +58,13 @@ attributes:
 # Connection
   netapp_server_hostname:
     value: ''
-    label: 'NetApp Hostname'
+    label: 'NetApp Storage Hostname/IP'
     description: 'The hostname or IP address for the storage system or proxy server'
     weight: 31
     type: 'text'
   netapp_server_port:
     value: ''
-    label: 'NetApp Server Port'
+    label: 'NetApp Storage Port'
     description: 'The TCP port to use for communication with the storage system or proxy server. If not specified, Data ONTAP drivers will use 80 for HTTP and 443 for HTTPS; E-Series will use 8080 for HTTP and 8443 for HTTPS'
     weight: 32
     type: 'text'
@@ -77,7 +77,7 @@ attributes:
         - data: 'https'
           label: 'https'
           description: ''
-    label: 'Netapp Transport Type'
+    label: 'Transport Type'
     description: 'The transport protocol used for communication with the storage system or proxy server'
     weight: 33
     type: 'radio'
@@ -85,8 +85,8 @@ attributes:
 # NFS Shares
   nfs_server_ip:
     value: ''
-    label: 'NetApp NFS server'
-    description: 'The hostname or IP address for NFS server started on NetApp apliance'
+    label: 'CDOT Data LIF IP address'
+    description: 'The Data LIF IP address is part of the NFS export location (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be 10.10.10.10)'
     weight: 41
     type: 'text'
     restrictions:
@@ -112,8 +112,8 @@ attributes:
         action: 'hide'
   nfs_server_share1:
     value: ''
-    label: 'NFS share'
-    description: 'The NFS share path (e.g. /vol1)'
+    label: 'CDOT FlexVol volume junction path'
+    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be /cinder_flexvol)'
     weight: 43
     type: 'text'
     restrictions:
@@ -121,8 +121,8 @@ attributes:
         action: 'hide'
   nfs_server_share2:
     value: ''
-    label: 'NFS share 2'
-    description: 'The NFS share path (e.g. /vol2)'
+    label: 'CDOT FlexVol volume junction path 2'
+    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_2, this value will be /cinder_flexvol_2)'
     weight: 44
     type: 'text'
     restrictions:
@@ -130,8 +130,8 @@ attributes:
         action: 'hide'
   nfs_server_share3:
     value: ''
-    label: 'NFS share 3'
-    description: 'The NFS share path (e.g. /vol3)'
+    label: 'CDOT FlexVol volume junction path 3'
+    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_3, this value will be /cinder_flexvol_3)'
     weight: 45
     type: 'text'
     restrictions:
@@ -139,8 +139,8 @@ attributes:
         action: "hide"
   nfs_server_share4:
     value: ''
-    label: 'NFS share 4'
-    description: 'The NFS share path (e.g. /vol4)'
+    label: 'CDOT FlexVol volume junction path 4'
+    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_4, this value will be /cinder_flexvol_4)'
     weight: 46
     type: 'text'
     restrictions:
@@ -150,8 +150,8 @@ attributes:
 # Ontap Cluster
   netapp_vserver:
     value: ''
-    label: 'Vserver'
-    description: 'This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur'
+    label: 'Storage Virtual Machine'
+    description: 'This option specifies the storage virtual machine (vserver) name in which provisioning of block storage volumes should occur'
     weight: 51
     type: 'text'
     restrictions:
@@ -162,7 +162,7 @@ attributes:
   netapp_vfiler:
     value: ''
     label: 'vFiler'
-    description: '(Optionnal) The vFiler unit on which provisioning of block storage volumes will be done'
+    description: '(Optional) The vFiler unit on which provisioning of block storage volumes will be done'
     weight: 51
     type: 'text'
     restrictions:
@@ -191,7 +191,7 @@ attributes:
   netapp_eseries_host_type:
     value: 'linux_dm_mp'
     label: 'Host Type'
-    description: '(Optionnal) This option defines the type of operating system for all initiators that can access a LUN'
+    description: '(Optional) This option defines the type of operating system for all initiators that can access a LUN'
     weight: 62
     type: 'text'
     restrictions:
@@ -200,7 +200,7 @@ attributes:
   netapp_enable_multiattach:
     value: false
     label: 'Multiattach'
-    description: '(Optionnal) This option specifies whether the driver should allow operations that require multiple attachments to a volume'
+    description: '(Optional) This option specifies whether the driver should allow operations that require multiple attachments to a volume'
     weight: 63
     type: 'checkbox'
     restrictions:
@@ -211,7 +211,7 @@ attributes:
   nfs_mount_options:
     value: ''
     label: 'NFS Mount Options'
-    description: '(Optional) Will be used when mouning shares on the Storage and Compute nodes'
+    description: '(Optional) This option will be used when mounting shares on the Storage and Compute nodes'
     weight: 61
     type: 'text'
     restrictions:
@@ -219,8 +219,8 @@ attributes:
         action: 'hide'
   thres_avl_size_perc_start:
     value: '20'
-    label: 'Thres Avl Size Perc Start'
-    description: '(Optionnal) If the percentage of available space for an NFS share has dropped below the value specified by this option, the NFS image cache will be cleaned'
+    label: 'Threshold Available Size (% Start)'
+    description: '(Optional) If the percentage of available space for an NFS share has dropped below the value specified by this option, the NFS image cache will be cleaned'
     weight: 62
     type: 'text'
     restrictions:
@@ -228,8 +228,8 @@ attributes:
         action: "hide"
   thres_avl_size_perc_stop:
     value: '60'
-    label: 'Thres Avl Size Perc Stop'
-    description: '(Optionnal) When the percentage of available space on an NFS share has reached the percentage specified by this option, the driver will stop clearing files from the NFS image cache'
+    label: 'Threshold Available Size (% Stop)'
+    description: '(Optional) When the percentage of available space on an NFS share has reached the percentage specified by this option, the driver will stop clearing files from the NFS image cache'
     weight: 63
     type: 'text'
     restrictions:
@@ -237,8 +237,8 @@ attributes:
         action: 'hide'
   expiry_thres_minutes:
     value: '720'
-    label: 'Expiry Thres Minutes'
-    description: '(Optionnal) This option specifies the threshold for last access time for images in the NFS image cache'
+    label: 'Expiry Threshold (Minutes)'
+    description: '(Optional) This option specifies the threshold for last access time for images in the NFS image cache'
     weight: 64
     type: 'text'
     restrictions:
@@ -248,8 +248,8 @@ attributes:
 # Ontap Cluster with NFS
   netapp_copyoffload_tool_path:
     value: ''
-    label: 'Copyoffload Tool Path'
-    description: '(Optionnal) This option specifies the path of the NetApp copy offload tool binary'
+    label: 'Copy Offload Tool Path'
+    description: '(Optional) This option specifies the path of the NetApp copy offload tool binary'
     weight: 65
     type: 'text'
     restrictions:
@@ -260,7 +260,7 @@ attributes:
   netapp_pool_name_search_pattern:
     value: '(.+)'
     label: 'Pool Search Pattern'
-    description: '(Optionnal) It is used to restrict provisioning to the specified volume groups or disk pools. Specify the value of this option as a regular expression which will be applied to the names of volume groups or disk pools from the storage backend which represent pools in Cinder'
+    description: '(Optional) This option is used to restrict provisioning to the specified volume groups or disk pools. Specify the value of this option as a regular expression which will be applied to the names of volume groups or disk pools from the storage backend which represent pools in Cinder'
     weight: 61
     type: 'text'
     restrictions:
@@ -268,8 +268,8 @@ attributes:
         action: "hide"
   use_multipath_for_image_xfer:
     value: true
-    label: 'Multipath for Image Xfer'
-    description: '(Optionnal) Using this option will permit Cinder to use multiple paths for increased bandwidth. It affects Nova settings'
+    label: 'Multipath for Image Transfer'
+    description: '(Optional) If multipath has been enabled on your OpenStack hosts, then setting this option will permit Cinder to use multiple paths for increased bandwidth'
     weight: 65
     type: 'checkbox'
     restrictions:
@@ -280,7 +280,7 @@ attributes:
   netapp_host_type:
     value: 'linux'
     label: 'Host Type'
-    description: '(Optionnal) This option defines the type of operating system for all initiators that can access a LUN'
+    description: '(Optional) This option defines the type of operating system for all initiators that can access a LUN'
     weight: 62
     type: 'text'
     restrictions:
@@ -289,7 +289,7 @@ attributes:
   netapp_lun_ostype:
     value: 'linux'
     label: 'LUN OS type'
-    description: '(Optionnal) This option defines the type of operating system that will access a LUN exported from Data ONTAP'
+    description: '(Optional) This option defines the type of operating system that will access a LUN exported from Data ONTAP'
     weight: 63
     type: 'text'
     restrictions:
@@ -298,7 +298,7 @@ attributes:
   netapp_lun_space_reservation:
     value: true
     label: 'LUN Space Reservation'
-    description: '(Optionnal) This option specifies whether space will be reserved when creating Cinder volumes on NetApp backends using the iSCSI protocol'
+    description: '(Optional) This option specifies whether space will be reserved when creating Cinder volumes on NetApp backends using the iSCSI protocol'
     weight: 64
     type: 'checkbox'
     restrictions:
@@ -309,12 +309,12 @@ attributes:
   reserved_percentage:
     value: '0'
     label: 'Reserved Percentage'
-    description: '(Optionnal) This option represents the amount of total capacity of a storage pool that will be reserved and cannot be utilized for provisioning Cinder volumes'
+    description: '(Optional) This option represents the amount of total capacity of a storage pool that will be reserved and cannot be utilized for provisioning Cinder volumes'
     weight: 71
     type: 'text'
   max_oversubscription_ratio:
     value: '1.0'
     label: 'Oversubscription Ratio'
-    description: '(Optionnal) This option is defined as a float, and specifies the amount of over-provisioning to allow when thin provisioning is being used in the storage pool. A value of 1.0 will mean that the provisioned capacity will not be able to exceed the total capacity, while larger values will result in increased levels of allowed over-provisioning'
+    description: '(Optional) This option specifies the amount of over-provisioning to allow when thin provisioning is used in the storage pool. A value of 1.0 will mean that the provisioned capacity will not be able to exceed the total capacity, while larger values will result in increased levels of over-provisioning'
     weight: 72
     type: 'text'
