@@ -1,0 +1,9 @@
+Code-Review+1: Nikita Koshikov <nkoshikov@mirantis.com>
+Code-Review+2: Andrey Volochay <avolochay@mirantis.com>
+Workflow+1: Andrey Volochay <avolochay@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Tue, 10 May 2016 15:17:06 +0000
+Reviewed-on: https://review.openstack.org/312504
+Project: openstack/fuel-plugin-cinder-netapp
+Branch: refs/heads/7.0
