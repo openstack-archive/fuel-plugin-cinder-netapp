@@ -27,6 +27,10 @@ Requirements
 Release Notes
 -------------
 
+**4.1.0**
+
+* Rewrite fields in UI
+
 **4.0.0**
 
 * add MOS 8.0 support
