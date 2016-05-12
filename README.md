@@ -27,6 +27,10 @@ Requirements
 Release Notes
 -------------
 
+**4.1.1**
+
+* Fix bug with multibackend when Ceph is used (bug: 1581028)
+
 **4.1.0**
 
 * Rewrite fields in UI
