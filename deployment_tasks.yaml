@@ -12,8 +12,8 @@
 - id: netapp_cinder
   type: puppet
   version: 2.0.0
-  groups: [cinder]
-  requires: [top-role-cinder, deploy_start]
+  groups: [cinder, ceph-osd]
+  requires: [top-role-cinder, top-role-ceph-osd, deploy_start]
   required_for: [deploy_end]
   parameters:
     puppet_manifest: puppet/manifests/site.pp
