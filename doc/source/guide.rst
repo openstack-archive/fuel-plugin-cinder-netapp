@@ -98,7 +98,7 @@ create OpenStack environments that use NetApp storage as a Cinder backend.
 
 #. Using *Nodes* tab,
    `add nodes and assign roles to them <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/add-nodes.html>`_.
-   Please, note that all controller nodes should be configured with Cinder role.
+   Please, note that all controller nodes **MUST** be configured with Cinder role as well.
 
 #. This step is needed only when local fuel mirrors are used
    Following packages ``nfs-common``, ``open-iscsi``, ``multipath-tools`` aren't included by default when local mirror is created. To have these packages available during deploy you have to add them into  ``/usr/share/fuel-mirror/ubuntu.yaml`` file in ``packages: &packages`` section.
