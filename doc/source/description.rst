@@ -54,6 +54,7 @@ Release Nodes
 
 Limitations
 -----------
+* All controller nodes should be configured with Cinder role
 * Only one NetApp backend can be configured to work with Cinder
 * Before creating Ubuntu repository's mirrors in Fuel, you have to manually add to /usr/share/fuel-mirror/ubuntu.yaml following packages:
   * nfs-common
