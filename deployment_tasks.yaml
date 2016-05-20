@@ -42,3 +42,14 @@
     retries: 3
     interval: 20
     timeout: 180
+
+- id: cinder_ug_create
+  type: puppet
+  version: 2.0.0
+  groups: [cinder]
+  requires: [deploy_start]
+  required_for: [top-role-cinder]
+  parameters:
+    puppet_manifest: puppet/manifests/cinder_ug_create.pp
+    puppet_modules:  puppet/modules/:/etc/puppet/modules/
+    timeout: 360
