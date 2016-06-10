@@ -6,7 +6,7 @@
   required_for: [create-cinder-types, deploy_end]
   parameters:
     puppet_manifest: puppet/manifests/hiera_override.pp
-    puppet_modules:  /etc/puppet/modules
+    puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
 - id: netapp_cinder
@@ -28,7 +28,7 @@
   required_for: [deploy_end]
   parameters:
     puppet_manifest: puppet/manifests/compute.pp
-    puppet_modules:  /etc/puppet/modules
+    puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
 - id: deleting_old_cinder_volume_services
