@@ -1,19 +1,19 @@
 - id: netapp_hiera_override
   type: puppet
   version: 2.0.0
-  groups: [primary-controller, controller]
-  requires: [openstack-cinder, deploy_start]
-  required_for: [create-cinder-types, deploy_end]
+  groups: [primary-controller]
+  requires: [openstack-cinder]
+  required_for: [create-cinder-types]
   parameters:
     puppet_manifest: puppet/manifests/hiera_override.pp
-    puppet_modules:  /etc/puppet/modules
+    puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
 - id: netapp_cinder
   type: puppet
   version: 2.0.0
   groups: [cinder, ceph-osd]
-  requires: [top-role-cinder, top-role-ceph-osd, deploy_start]
+  requires: [top-role-cinder, top-role-ceph-osd]
   required_for: [deploy_end]
   parameters:
     puppet_manifest: puppet/manifests/site.pp
@@ -24,11 +24,11 @@
   type: puppet
   version: 2.0.0
   groups: [compute]
-  requires: [top-role-compute, deploy_start]
+  requires: [top-role-compute]
   required_for: [deploy_end]
   parameters:
     puppet_manifest: puppet/manifests/compute.pp
-    puppet_modules:  /etc/puppet/modules
+    puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
 - id: deleting_old_cinder_volume_services
