@@ -1,3 +1,6 @@
 notice('MODULAR: fuel-plugin-cinder-netapp')
 
-class { 'plugin_cinder_netapp': }
+# The manifest is executed on nodes with cinder role or on nodes with controller role when Ceph is used.
+if (hiera('role') == 'cinder') or (!empty(filter_nodes(hiera('nodes'), 'role', 'ceph-osd'))) {
+  class { 'plugin_cinder_netapp': }
+}
