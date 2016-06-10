@@ -1,20 +1,23 @@
+# The task modifies hiera data to have right set cinder-types
 - id: netapp_hiera_override
   type: puppet
   version: 2.0.0
-  groups: [primary-controller, controller]
-  requires: [openstack-cinder, deploy_start]
-  required_for: [create-cinder-types, deploy_end]
+  groups: [primary-controller, controller, cinder]
+  requires: [hiera]
+  required_for: [create-cinder-types]
   parameters:
     puppet_manifest: puppet/manifests/hiera_override.pp
-    puppet_modules:  /etc/puppet/modules
+    puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
+# The task is executed on controller nodes only in particular cases
+# See site.pp for more details
 - id: netapp_cinder
   type: puppet
   version: 2.0.0
-  groups: [cinder, ceph-osd]
-  requires: [top-role-cinder, top-role-ceph-osd, deploy_start]
-  required_for: [deploy_end]
+  role: [primary-controller, controller, cinder]
+  requires: [post_deployment_start]
+  required_for: [post_deployment_end]
   parameters:
     puppet_manifest: puppet/manifests/site.pp
     puppet_modules:  puppet/modules:/etc/puppet/modules
@@ -24,11 +27,11 @@
   type: puppet
   version: 2.0.0
   groups: [compute]
-  requires: [top-role-compute, deploy_start]
+  requires: [top-role-compute]
   required_for: [deploy_end]
   parameters:
     puppet_manifest: puppet/manifests/compute.pp
-    puppet_modules:  /etc/puppet/modules
+    puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
 - id: deleting_old_cinder_volume_services
