@@ -1,11 +1,12 @@
+=============
 NetApp plugin
 =============
 
-NetApp plugin provides support of ONTAP and E-series storage clusters to Cinder.
-NetApp plugin uses NetApp unified driver; the latter is a
+The plugin provides support of ``Clustered Data ONTAP``, ``Data ONTAP 7-Mode`` and ``E-series`` storage clusters to Cinder.
+The plugin uses NetApp unified driver, the latter is a
 block storage driver that supports multiple storage families and protocols.
 A storage family corresponds to storage systems built on different NetApp technologies
-such as clustered Data ONTAP, Data ONTAP operating in 7-Mode,
+such as Clustered Data ONTAP, Data ONTAP operating in 7-Mode,
 and E-Series.
 The storage protocol refers to the protocol used to initiate data
 storage and access operations on those storage systems like iSCSI and NFS.
@@ -18,12 +19,13 @@ storage families and protocols.
 
 Features
 --------
-* ONTAP Clustered Mode as a backend for Cinder with NFS or iSCSI data-transfer protocols
-* ONTAP 7 Mode as a backend for Cinder with NFS or iSCSI data-transfer protocols
-* E-Series as a backend for Cinder with iSCSI data-transfer protocol
-* Multibackend: A supported NetApp storage with any default Cinder backend, either LVM over iSCSI or Ceph
-* Supports all NetApp driver options to be configured
-
+* Clustered Data ONTAP as a backend for Cinder with NFS or iSCSI data-transfer protocols
+* Data ONTAP 7-Mode as a backend for Cinder with NFS or iSCSI data-transfer protocols
+* E-Series or EF-Series as a backend for Cinder with iSCSI data-transfer protocol
+* Supports multi backend feature. The plugin does not overwrite ``enabled_backends`` option
+  thereby allowing use other plugins for Cinder.
+* Allows using NetApp as a backend for Cinder along with MOS default backends - ``LVM over iSCSI`` or ``Ceph``
+* Supports all configuration options of NetApp Cinder driver for Liberty
 
 Requirements
 ------------
@@ -31,32 +33,37 @@ Requirements
 Requirement             Version/Comment
 ======================= =================================
 Fuel                    8.0
-ONTAP or E-Series       All storage family is supported.
+NetApp Storage System   Clustered ONTAP Data
+
+                        Data ONTAP 7-Mode
+
+                        E-Series or EF-Series
 ======================= =================================
 
 
 Prerequisites
 -------------
-* If you plan to use the plugin with **ONTAP**, please make sure that it
-  is configured, up and running. For instructions, see `the official
-  NetApp ONTAP documentation  <http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30092>`_.
+* If you plan to use the plugin with **Data ONTAP 7-Mode** or **Clustered ONTAP Data**, please make sure
+  that it is configured, up and running. For instructions, see `the official NetApp ONTAP documentation`_.
 
 
-* If you plan to use the plugin with **E-Series**, please make sure that it
-  is configured, up and running. For instructions, see `the official
-  NetApp E-Series documentation <https://mysupport.netapp.com/info/web/ECMP1658252.html>`_.
+* If you plan to use the plugin with **E-Series** or **EF-Series**, please make sure that it
+  is configured, up and running. For instructions, see `the official NetApp E-Series documentation`_.
 
-Release Nodes
+Release Notes
 -------------
-* The plugin has been totally refactored to accordance with changes in OpenStack Liberty and MOS 8.0
-* All documented features of NetApp Cinder Driver are configurable
-* Plugin can change Cinder settings after deployment with wrong parameters. It requires manual actions
+* Added true support of multi backends
+* Legacy of CentOS support for iSCSI was removed
+* Added comments to source code
+* Documentation is updated\fixed
 
 Limitations
 -----------
-* Deployment fails if ``cinder`` role is not assigned to ``controller`` nodes
 * Only one NetApp backend can be configured to work with Cinder
 * Before creating Ubuntu repository's mirrors in Fuel, you have to manually add to /usr/share/fuel-mirror/ubuntu.yaml following packages:
   * nfs-common
   * open-iscsi
   * multipath-tools
+
+.. _the official NetApp ONTAP documentation: http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30092
+.. _the official NetApp E-Series documentation: https://mysupport.netapp.com/info/web/ECMP1658252.html
