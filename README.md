@@ -27,6 +27,14 @@ Requirements
 Release Notes
 -------------
 
+**4.2.0**
+
+* Added full support of multi backends
+
+* The code has been refactored and commented, slightly
+
+* Added small changes to get free allocation of roles
+
 **4.1.1**
 
 * Fix bug with multibackend when Ceph is used (bug: 1581028)
