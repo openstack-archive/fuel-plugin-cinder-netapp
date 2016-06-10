@@ -1,17 +1,15 @@
+=========================
 Configuring NetApp plugin
 =========================
 
-Once the Fuel Cinder NetApp  plugin has been installed, you can
-create OpenStack environments that use NetApp storage as a Cinder backend.
-
+Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack environments that use NetApp storage as a Cinder backend.
 
 #. Create an OpenStack environment using the Fuel UI wizard:
 
    .. image:: images/create_env.png
       :width: 90%
 
-#. Finish environment creation following
-   `the instructions <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/create-environment/start-create-env.html>`_.
+#. Finish environment creation following `the instructions`_.
 
 #. Once the environment is created, open the **Settings** tab of the Fuel Web UI
    and then **Storage**. Scroll down the page. Select the **Cinder and NetApp integration**
@@ -20,84 +18,86 @@ create OpenStack environments that use NetApp storage as a Cinder backend.
    .. image:: images/select-checkbox.png
       :width: 40%
 
-#. Configure the plugin.Select **Multibackend enabled** checkbox
-   if you would like NetApp driver to be used as the Cinder Multibackend feature:
+#. Configure the plugin.Select **MOS Backend Enabled** checkbox
+   if you would like Cinder NetApp driver to be used along with default beckend for MOS Cinder:
 
-   .. image:: images/multibackend.png
-       :width: 50%
+   .. image:: images/default_backend.png
+      :width: 50%
 
 #. Choose storage family and storage protocol. Several options are available.
 
-   - If you plan to use ONTAP cluster mode through NFS, click **Ontap Cluster**
-     radio button and select *nfs* option in **Netapp storage protocol**.
+   - If you plan to use Clustered Data mode through NFS, click **Clustered Data ONTAP**
+     radio button and select *NFS* option in **NetApp Storage Protocol**.
      You should also choose NetApp transport type (http or https).
+
      Specify the following parameters in the text fields:
 
-     - Netapp username
-     - Netapp password
-     - Netapp server hostname
-     - NFS server
-     - NFS share(s)
-     - Netapp Vserver
+     - Username
+     - Password
+     - NetApp Storage Hostname/IP
+     - CDOT Data LIF IP address
+     - CDOT FlexVol volume junction path
+     - Storage Virtual Machine
 
      .. image:: images/cmode_nfs.png
         :width: 100%
 
-   - If you plan to use ONTAP cluster mode through iSCSI, click **Ontap Cluster**
-     radiobutton and select *iscsi* option in **Netapp storage protocol**.
+   - If you plan to use Clustered Data mode through iSCSI, click **Clustered Data ONTAP**
+     radiobutton and select *iSCSI* option in **NetApp Storage Protocol**.
      You should also choose NetApp transport type (http or https).
+
      Specify the following parameters in the text fields:
 
-     - Netapp username
-     - Netapp password
-     - Netapp server hostname
-     - Netapp Vserver
+     - Username
+     - Password
+     - NetApp Storage Hostname/IP
+     - Storage Virtual Machine
 
      .. image:: images/cmode_iscsi.png
         :width: 100%
 
-   - If you plan to use ONTAP 7 mode through NFS, click **Ontap 7mode**
-     radiobutton and select *nfs* option in **Netapp storage protocol**.
+   - If you plan to use 7-Mode through NFS, click **Data ONTAP 7-Mode**
+     radiobutton and select *NFS* option in **NetApp Storage Protocol**.
      You should also choose NetApp transport type (http or https).
+
      Specify the following parameters in the text fields:
 
-     - Netapp username
-     - Netapp password
-     - Netapp server hostname
-     - NFS server
-     - NFS share(s)
+     - Username
+     - Password
+     - NetApp Storage Hostname/IP
+     - CDOT Data LIF IP address
+     - CDOT FlexVol volume junction path
 
      .. image:: images/7mode_nfs.png
         :width: 100%
 
-   -  If you plan to use ONTAP 7 mode through iSCSI, click **Ontap 7mode**
-      radiobutton and select *iscsi* option in **Netapp storage protocol**.
-      You should also choose NetApp transport type (http or https).
-      Specify the following parameters in the text fields:
+   - If you plan to use 7-Mode through iSCSI, click **Data ONTAP 7-Mode**
+     radiobutton and select *iSCSI* option in **NetApp Storage Protocol**.
+     You should also choose NetApp transport type (http or https).
+     Specify the following parameters in the text fields:
 
-     - Netapp username
-     - Netapp password
-     - Netapp server hostname
+     - Username
+     - Password
+     - NetApp Storage Hostname/IP
 
      .. image:: images/7mode_iscsi.png
-       :width: 100%
+        :width: 100%
 
-   - If you plan to use E-series, click **E-Series**
-     radiobutton and select the only available *iscsi* option in **Netapp storage protocol**.
+   - If you plan to use E-Series or EF-Series, click **E-Series/EF-Series**
+     radiobutton and select the only available *iSCSI* option in **NetApp Storage Protocol**.
      You should also choose NetApp transport type (http or https).
-     Specify the following parameters in the text fields: please specify the following parameters:
+     Specify the following parameters in the text fields:
 
-     - Netapp username
-     - Netapp password
-     - Netapp server hostname
-     - Netapp controller IPs
-     - Netapp SA password
+     - Username
+     - Password
+     - NetApp Storage Hostname/IP
+     - Controller IPs
+     - Storage Array Password
 
      .. image:: images/eseries.png
         :width: 100%
 
-#. Using *Nodes* tab,
-   `add nodes and assign roles to them <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/add-nodes.html>`_.
+#. Using *Nodes* tab, `add nodes and assign roles to them`_.
    Please, note that all controller nodes **MUST** be configured with Cinder role as well.
 
 #. This step is needed only when local fuel mirrors are used
@@ -110,8 +110,12 @@ create OpenStack environments that use NetApp storage as a Cinder backend.
         - "open-iscsi"
         - "multipath-tools"
 
-#. Press `Deploy button <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment/deploy-changes.html>`_
-   once you are done with environment configuration.
+#. Press `Deploy button`_ once you are done with environment configuration.
 
 #. When the deployment is done, you may perform functional testing.
-   You can find instructions in `NetApp Mirantis Unlocked Reference Architecture <http://content.mirantis.com/Mirantis-NetApp-Reference-Architecture-Landing-Page.html>`_, paragraph 8.3. 
+   You can find instructions in `NetApp Mirantis Unlocked Reference Architecture`_, paragraph 8.3. 
+
+.. _the instructions: http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/create-environment/start-create-env.html
+.. _add nodes and assign roles to them: http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/add-nodes.html
+.. _Deploy button: http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment/deploy-changes.html
+.. _NetApp Mirantis Unlocked Reference Architecture: http://content.mirantis.com/Mirantis-NetApp-Reference-Architecture-Landing-Page.html
