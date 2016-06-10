@@ -4,7 +4,7 @@ include nova::params
 
 $cinder_netapp = hiera_hash('cinder_netapp', {})
 
-Nova_config <||> ~> service { "$nova::params::compute_service_name": }
+Nova_config <||> ~> Service <||>
 
 if ($cinder_netapp['netapp_storage_protocol']) == 'iscsi' and ($cinder_netapp['use_multipath_for_image_xfer']) {
   package { 'multipath-tools': }
@@ -23,3 +23,5 @@ if ($cinder_netapp['netapp_storage_protocol']) == 'nfs' {
     }
   }
 }
+
+service { "$nova::params::compute_service_name": }
