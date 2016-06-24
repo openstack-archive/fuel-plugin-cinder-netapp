@@ -1,0 +1,7 @@
+storage_hash:
+  volume_backend_names:
+    netapp: cinder_netapp
+<% if ! @default_backend -%>
+    volumes_lvm: false
+    volumes_ceph: false
+<% end -%>

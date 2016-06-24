@@ -1,11 +1,10 @@
+===========
 Utilization
 ===========
 
-
-Using
+Usage
 -----
 Since the plugin set up Cinder backend, to operate with plugin functionality you should use Cinder and set type ``netapp`` for volumes.
-
 
 Verification
 ------------
@@ -15,7 +14,6 @@ To perform functional testing you should:
 * Attach the volume to any available instance
 * Create a snapshot of this volume
 * Create a volume using the snapshot
-
 
 Troubleshooting
 ---------------
