@@ -4,13 +4,13 @@ Cinder NetApp plugin for Fuel
 Overview
 --------
 
-NetApp plugin can replace the Cinder LVM backend by Cinder Netapp Backend or work in parallel when deployed with multi-backend enabled.
-LVM is the default volume backend that uses local volumes managed by LVM.
+The plugin can replace Cinder default backend by Cinder NetApp backend or work in parallel. ``LVM over iSCSI`` and ``Ceph`` are two choices, which can be used as a default backend for Cinder. The plugin does not overwrite ``enabled_backends`` option that allows to use it with other plugins for Cinder backends.
 
-The plugin support following storage familly mode:
- - ONTAP 7-Mode
- - ONTAP Cluster Mode
- - E-Series
+
+The plugin support following storage families:
+ - Clustered Data ONTAP
+ - Data ONTAP 7-Mode
+ - E-Series/EF-Series
 
 This repo contains all necessary files to build Cinder NetApp Fuel plugin.
 
@@ -18,48 +18,68 @@ This repo contains all necessary files to build Cinder NetApp Fuel plugin.
 Requirements
 ------------
 
-| Requirement                                                                              | Version/Comment                                         |
-|------------------------------------------------------------------------------------------|---------------------------------------------------------|
-| Mirantis Openstack compatibility                                                         | 8.0                                                     |
-| Netapp filer or appliance is reacheble via one of the Mirantis OpenStack networks        | ONTAP or E-Series storage family with NTF\iSCSI enabled |
+| Requirement                                                                              | Version/Comment                                                        |
+|------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| Mirantis Openstack compatibility                                                         | 8.0                                                                    |
+| Netapp filer or appliance is reachable via one of the Mirantis OpenStack networks        | Data ONTAP or E-Series/EF-Series storage family with NTS\iSCSI enabled |
 
 
 Release Notes
 -------------
 
+**4.2.1**
+
+* Documentation has been updated and fixed
+
+**4.2.0**
+
+* Added full support of multi backends
+
+* The code has been refactored and commented, slightly
+
+* Added small changes to get free allocation of roles
+
+**4.1.1**
+
+* Fixed bug with multi backend when Ceph is used (bug: 1581028)
+
+**4.1.0**
+
+* Rewrited fields in UI
+
 **4.0.0**
 
-* add MOS 8.0 support
+* Added MOS 8.0 support
 
 **3.2.0**
 
-* add E-Series storage familly support
+* Added E-Series storage family support
 
-* fix the plugin UI
+* Fixed the plugin UI
 
 **3.1.0**
 
-* add high availability of operations with Volumes
+* Added high availability of operations with Volumes
 
 **3.0.0**
 
-* migrate the plugin from 2.0.0 to 3.0.0 package version
+* The plugin was migrated from 2.0.0 to 3.0.0 package version
 
 **2.0.0**
 
-* migrate plugins from 1.0.0 to 2.0.0 package version
+* The plugin was migrated from 1.0.0 to 2.0.0 package version
 
 **1.2.0**
 
-* add  multi backend support
+* Added multi backend support
 
-* add missing dependencies on compute node
+* Added missing dependencies on compute node
 
-* add capacity to deploy cinder role on a non controller node
+* Added capacity to deploy cinder role on a non controller node
 
 **1.1.0**
 
-* add 7 mode storage familly support
+* Added 7 mode storage family support
 
 **1.0.0**
 

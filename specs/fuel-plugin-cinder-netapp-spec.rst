@@ -10,218 +10,211 @@ Fuel Cinder NetApp plugin specification
 
 Overview
 --------
-
-NetApp plugin can replace the Cinder LVM backend by Cinder Netapp Backend or work in parallel when deployed with multi-backend enabled. LVM is the default volume backend that uses local volumes managed by LVM.
+The plugin can replace Cinder default backend in MOS by Cinder NetApp backend or work in parallel. ``LVM over iSCSI`` and ``Ceph`` are two choices, which can be used as a default backend for Cinder. The plugin does not overwrite ``enabled_backends`` option that allows to use it with other plugins for Cinder backends.
 
 This repo contains all necessary files to build Cinder NetApp Fuel plugin.
 
 Problem description
-===================
-
+-------------------
 This integration should be supported with the upstream version of Fuel product. Mirantis Openstack 8.0 release has Pluggable Architecture feature, that prevents developers from bringing any changes to the core product. Instead, the NetApp integration functionality can be implemented as a plugin for Fuel.
 
-The plugin support following storage famillies:
- - ONTAP with Cluster Mode and 7 Mode
- - E-series
+The plugin support following storage families:
+ - Clustered Data ONTAP
+ - Data ONTAP 7-Mode
+ - E-Series/EF-Series
 
-User Story 1: ONTAP devices with all modes
----------------------------------------------------
+User Story 1: Clustered Data ONTAP devices with NFS and iSCSI modes
+-------------------------------------------------------------------
+This case will provide availability to configure OpenStack compute instances to access Clustered Data ONTAP storage systems.
+To enable this functionality following changes should be added.
 
-This case will provide availability to configure OpenStack compute instances to access Data ONTAP storage systems. To enable this functionality following changes should be added:
+Clustered Data ONTAP via NFS:
+=============================
+ * All cinder hosts should have following configuration in *<cinder.conf>*::
 
-ONTAP with Cluster Mode via NFS:
-
-* All cinder hosts should have following configuration in *<cinder.conf>*::
-
-   [cinder_netapp]
-     volume_backend_name = cinder_netapp
-     volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
-     netapp_login = LOGIN
-     netapp_password = PASSWORD
-     netapp_server_hostname = SERVER_HOSTNAME
-     netapp_server_port =
-     netapp_transport_type = TRANSPORT_TYPE
-     netapp_storage_family = ontap_cluster
-     netapp_storage_protocol = nfs
-     nfs_shares_config = /etc/cinder/shares.conf
-     netapp_vserver = VSERVER
-
-  Where ``netapp_login``, ``netapp_password``, ``$netapp_server_hostname``, ``netapp_transport_type``, ``netapp_storage_family``, ``netapp_storage_protocol``, ``netapp_vserver`` should be configured through the Fuel Web UI in Cinder and NetApp integration section of the **Settings** tab.
-
-* All compute hosts should satisfy following requirements:
-
-  - ``nfs-common`` should be installed
-  - Ensure that ``nfs`` service is enabled and running in the system
-
-ONTAP with Cluster Mode via iSCSI:
-
-* All cinder hosts should have following configuration in *<cinder.conf>*::
-
-   [cinder_netapp]
-     volume_backend_name = cinder_netapp
-     volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
-     netapp_login = LOGIN
-     netapp_password = PASSWORD
-     netapp_server_hostname = SERVER_HOSTNAME
-     netapp_server_port =
-     netapp_transport_type = TRANSPORT_TYPE
-     netapp_storage_family = ontap_cluster
-     netapp_storage_protocol = iscsi
-     netapp_vserver = VSERVER
+    [cinder_netapp]
+      volume_backend_name = cinder_netapp
+      volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+      netapp_login = LOGIN
+      netapp_password = PASSWORD
+      netapp_server_hostname = SERVER_HOSTNAME
+      netapp_server_port =
+      netapp_transport_type = TRANSPORT_TYPE
+      netapp_storage_family = ontap_cluster
+      netapp_storage_protocol = nfs
+      nfs_shares_config = /etc/cinder/shares.conf
+      netapp_vserver = VSERVER
 
   Where ``netapp_login``, ``netapp_password``, ``$netapp_server_hostname``, ``netapp_transport_type``, ``netapp_storage_family``, ``netapp_storage_protocol``, ``netapp_vserver`` should be configured through the Fuel Web UI in Cinder and NetApp integration section of the **Settings** tab.
 
-* All compute hosts should satisfy following requirements:
+ * All compute hosts should satisfy following requirements:
 
-  - ``open-iscsi`` and ``multipath-tools`` should be installed
+   - ``nfs-common`` should be installed
+   - Ensure that ``nfs`` service is enabled and running in the system
 
-ONTAP with 7 Mode via NFS:
+Clustered Data ONTAP via iSCSI:
+===============================
+ * All cinder hosts should have following configuration in *<cinder.conf>*::
 
-* All cinder hosts should have following configuration in *<cinder.conf>*::
+    [cinder_netapp]
+      volume_backend_name = cinder_netapp
+      volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+      netapp_login = LOGIN
+      netapp_password = PASSWORD
+      netapp_server_hostname = SERVER_HOSTNAME
+      netapp_server_port =
+      netapp_transport_type = TRANSPORT_TYPE
+      netapp_storage_family = ontap_cluster
+      netapp_storage_protocol = iscsi
+      netapp_vserver = VSERVER
 
-   [cinder_netapp]
-     volume_backend_name = cinder_netapp
-     volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
-     netapp_login = LOGIN
-     netapp_password = PASSWORD
-     netapp_server_hostname = SERVER_HOSTNAME
-     netapp_server_port =
-     netapp_transport_type = TRANSPORT_TYPE
-     netapp_storage_family = ontap_7mode
-     netapp_storage_protocol = nfs
-     nfs_shares_config = /etc/cinder/shares.conf
-     netapp_vfiler = VFILTER
+  Where ``netapp_login``, ``netapp_password``, ``$netapp_server_hostname``, ``netapp_transport_type``, ``netapp_storage_family``, ``netapp_storage_protocol``, ``netapp_vserver`` should be configured through the Fuel Web UI in Cinder and NetApp integration section of the **Settings** tab.
+
+ * All compute hosts should satisfy following requirements:
+
+   - ``open-iscsi`` and ``multipath-tools`` should be installed
+
+User Story 2: Data ONTAP 7-Mode devices with NFS and iSCSI modes
+----------------------------------------------------------------
+This case will provide availability to configure OpenStack compute instances to access Data ONTAP 7-Mode storage systems. To enable this functionality following changes should be added:
+
+Data ONTAP 7-Mode via NFS:
+==========================
+ * All cinder hosts should have following configuration in *<cinder.conf>*::
+
+    [cinder_netapp]
+      volume_backend_name = cinder_netapp
+      volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+      netapp_login = LOGIN
+      netapp_password = PASSWORD
+      netapp_server_hostname = SERVER_HOSTNAME
+      netapp_server_port =
+      netapp_transport_type = TRANSPORT_TYPE
+      netapp_storage_family = ontap_7mode
+      netapp_storage_protocol = nfs
+      nfs_shares_config = /etc/cinder/shares.conf
+      netapp_vfiler = VFILTER
 
   Where ``netapp_login``, ``netapp_password``, ``$netapp_server_hostname``, ``netapp_transport_type``, ``netapp_storage_family``, ``netapp_storage_protocol``, ``netapp_vfilter`` should be configured through the Fuel Web UI in Cinder and NetApp integration section of the **Settings** tab.
 
-* All compute hosts should satisfy following requirements:
+ * All compute hosts should satisfy following requirements:
 
-  - ``nfs-common`` should be installed.
-  - Ensure that ``nfs`` service is enabled and running in the system
+   - ``nfs-common`` should be installed.
+   - Ensure that ``nfs`` service is enabled and running in the system
 
-ONTAP with 7 Mode via iSCSI:
+Data ONTAP 7-Mode via iSCSI:
+============================
+ * All cinder hosts should have following configuration in *<cinder.conf>*::
 
-* All cinder hosts should have following configuration in *<cinder.conf>*::
-
-   [cinder_netapp]
-     volume_backend_name = cinder_netapp
-     volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
-     netapp_login = LOGIN
-     netapp_password = PASSWORD
-     netapp_server_hostname = SERVER_HOSTNAME
-     netapp_server_port =
-     netapp_transport_type = TRANSPORT_TYPE
-     netapp_storage_family = ontap_7mode
-     netapp_storage_protocol = iscsi
-     netapp_vfiler = VFILTER
+    [cinder_netapp]
+      volume_backend_name = cinder_netapp
+      volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+      netapp_login = LOGIN
+      netapp_password = PASSWORD
+      netapp_server_hostname = SERVER_HOSTNAME
+      netapp_server_port =
+      netapp_transport_type = TRANSPORT_TYPE
+      netapp_storage_family = ontap_7mode
+      netapp_storage_protocol = iscsi
+      netapp_vfiler = VFILTER
 
   Where ``netapp_login``, ``netapp_password``, ``$netapp_server_hostname``, ``netapp_transport_type``, ``netapp_storage_family``, ``netapp_storage_protocol``, ``netapp_vfiler`` should be configured through the Fuel Web UI in Cinder and NetApp integration section of the **Settings** tab.
 
-* All compute hosts should satisfy following requirements:
+ * All compute hosts should satisfy following requirements:
 
-  - ``open-iscsi`` and ``multipath-tools`` should be installed
+   - ``open-iscsi`` and ``multipath-tools`` should be installed
 
-User Story 2: E-series devices
--------------------------------------------------------------
+User Story 3: E-Series/EF-Series devices with iSCSI mode
+--------------------------------------------------------
+This case will provide availability to configure OpenStack compute instances to access E-Series/EF-Series storage systems. To enable this functionality following changes should be added:
 
-This case will provide availability to configure OpenStack compute instances to access E-series storage systems. To enable this functionality following changes should be added:
+E-Series/EF-Series via iSCSI:
+=============================
+ * All cinder hosts should have following configuration in *<cinder.conf>*::
 
-* All cinder hosts should have following configuration in *<cinder.conf>*::
-
-   [cinder_netapp]
-     volume_backend_name = cinder_netapp
-     volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
-     netapp_login = LOGIN
-     netapp_password = PASSWORD
-     netapp_server_hostname = SERVER_HOSTNAME
-     netapp_server_port =
-     netapp_transport_type = TRANSPORT_TYPE
-     netapp_storage_family = eseries
-     netapp_storage_protocol = iscsi
-     netapp_host_type = linux_dm_mp
-     netapp_controller_ips = CONTROLLER_IPS
-     netapp_sa_password = SA_PASSWORD
-     netapp_webservice_path= /devmgr/v2
+    [cinder_netapp]
+      volume_backend_name = cinder_netapp
+      volume_driver = cinder.volume.drivers.netapp.common.NetAppDriver
+      netapp_login = LOGIN
+      netapp_password = PASSWORD
+      netapp_server_hostname = SERVER_HOSTNAME
+      netapp_server_port =
+      netapp_transport_type = TRANSPORT_TYPE
+      netapp_storage_family = eseries
+      netapp_storage_protocol = iscsi
+      netapp_host_type = linux_dm_mp
+      netapp_controller_ips = CONTROLLER_IPS
+      netapp_sa_password = SA_PASSWORD
+      netapp_webservice_path= /devmgr/v2
 
   Where ``netapp_login``, ``netapp_password``, ``$netapp_server_hostname``, ``netapp_transport_type``, ``netapp_storage_family``, ``netapp_storage_protocol``, ``netapp_controller_ips``, ``netapp_sa_password`` should be configured through the Fuel Web UI in Cinder and NetApp integration section of the **Settings** tab.
 
-* All compute hosts should satisfy following requirements:
+ * All compute hosts should satisfy following requirements:
 
-  - ``open-iscsi`` and ``multipath-tools`` should be installed
+   - ``open-iscsi`` and ``multipath-tools`` should be installed
 
-Alternatives
----------------
 
-There are no known alternatives for this plugin, although all steps can be performed manually.
+Affects
+-------
 
 REST API impact
----------------
-
+===============
 None.
 
 Upgrade impact
---------------
-
-Upgrading should be tested explicitly with this plugin installed and NetApp storage cluster enabled.
+==============
+Upgrading should be tested explicitly with this plugin installed and NetApp storage enabled.
 
 Security impact
----------------
-
-This plugin uses credentials that were used during NetApp cluster setup. No inpact on OpenStack services.
+===============
+This plugin uses credentials that were used during NetApp storage setup. No impact on OpenStack services.
 
 Notifications impact
---------------------
-
+====================
 None.
 
 Other end user impact
----------------------
-
+=====================
 None.
 
 Plugin impact
--------------
-
+=============
 This plugin should not impact other plugins until they do not modify the same settings for Cinder configuration.
 
 Other deployer impact
----------------------
+=====================
 
 Developer impact
-----------------
+================
 
+Documentation Impact
+====================
+Reference to this plugin should be added to main Fuel documentation.
 
 Implementation
-==============
+--------------
 
 Work Items
-----------
-
+==========
 * Create fuel-plugin-cinder-netapp plugin
-
 * Develop the Fuel Web UI part of the plugin
-
 * Add puppet support for all configuration cases
-
 * Write documentation (User Guide)
 
 Dependencies
 ============
-
 * Ubuntu 14.04 support in MOS
 
 Testing
-========
+-------
+Plugin should pass functional tests executed manually.
 
-Plugin should pass tempest framework tests.
-
-Documentation Impact
-====================
-
-Reference to this plugin should be added to main Fuel documentation.
+Alternatives
+---------------
+There are no known alternatives for this plugin, although all steps can be performed manually.
 
 References
-==========
+----------
+[1] http://netapp.github.io/openstack-deploy-ops-guide/liberty/content/section_cinder-configuration.html
 
-[1] http://docs.openstack.org/icehouse/config-reference/content/netapp-volume-driver.html
 [2] https://blueprints.launchpad.net/fuel/+spec/support-ubuntu-trusty
