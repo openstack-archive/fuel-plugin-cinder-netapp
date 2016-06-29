@@ -1,8 +1,6 @@
 define plugin_cinder_netapp::backend::enable_backend (
-  $config_file = $plugin_cinder_netapp::params::config_file
+  $config_file = $plugin_cinder_netapp::config_file
 ) {
-
-  include plugin_cinder_netapp::params
 
   ini_subsetting {"enable_${name}_backend":
     ensure               => present,

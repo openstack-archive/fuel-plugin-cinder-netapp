@@ -1,14 +1,20 @@
 attributes:
   metadata:
     group: 'storage'
-  default_backend:
-    value: false
-    label: 'MOS Backend Enabled'
-    description: 'If the option is checked, MOS default backend (LVM over iSCSI\Ceph) will be used along with NetApp'
-    weight: 10
-    type: 'checkbox'
 
 # Storage Type
+  netapp_enabled:
+    value: false
+    label: 'Enable NetApp storage backend'
+    description: 'If checked one of the NetApp storage backends (Clustered ONTAP, 7-mode or E-series) will be used.'
+    weight: 11
+    type: 'checkbox'
+  solidfire_enabled:
+    value: false
+    label: 'Enable SolidFire storage backend'
+    description: 'If checked SolidFire will be enabled as a storage backend.'
+    weight: 12
+    type: 'checkbox'
   netapp_storage_family:
     value: 'ontap_cluster'
     values:
@@ -22,7 +28,7 @@ attributes:
           label: 'E-Series/EF-Series'
           description: ''
     label: 'NetApp Storage Family'
-    weight: 11
+    weight: 13
     type: 'radio'
   netapp_storage_protocol:
     value: 'iscsi'
@@ -37,8 +43,8 @@ attributes:
             - condition: "settings:cinder_netapp.netapp_storage_family.value == 'eseries'"
               action: 'hide'
     label: 'NetApp Storage Protocol'
-    description: 'The storage protocol to be used on the data path with the storage system'
-    weight: 12
+    description: 'The storage protocol to be used on the data path with the NetApp storage system'
+    weight: 14
     type: 'radio'
 
 # Authorisation
@@ -305,7 +311,7 @@ attributes:
       - condition: "settings:cinder_netapp.netapp_storage_protocol.value != 'iscsi' or settings:cinder_netapp.netapp_storage_family.value == 'eseries'"
         action: 'hide'
 
-# Common
+# NetApp Common
   reserved_percentage:
     value: '0'
     label: 'Reserved Percentage'
@@ -317,4 +323,53 @@ attributes:
     label: 'Oversubscription Ratio'
     description: '(Optional) This option specifies the amount of over-provisioning to allow when thin provisioning is used in the storage pool. A value of 1.0 will mean that the provisioned capacity will not be able to exceed the total capacity, while larger values will result in increased levels of over-provisioning'
     weight: 72
+    type: 'text'
+
+  solidfire_mvip:
+    value: ''
+    label: 'Cluster MVIP (san_ip)'
+    description: 'The hostname (or IP address) for the SolidFire Cluster API endpoint.'
+    weight: 120
+    type: "text"
+  solidfire_admin_login:
+    value: ''
+    label: 'Login for Cluster Admin account (san_login)'
+    description: 'Cluster account used by Cinder service.'
+    weight: 130
+    type: "text"
+  solidfire_admin_password:
+    value: ''
+    label: 'Password for Cluster Admin account (san_password)'
+    description: 'Cluster account used by Cinder service.'
+    weight: 140
+    type: "password"
+  solidfire_api_port:
+    value: '443'
+    label: 'Cluster endpoint port'
+    description: 'The TCP port to use for API communication with the cluster or proxy server.'
+    weight: 150
+    type: "text"
+  solidfire_allow_template_caching:
+    value: true
+    label: 'Enable Caching'
+    description: 'When creating bootable volumes, create an image cache on the SolidFire cluster.'
+    weight: 151
+    type: "checkbox"
+  solidfire_template_account:
+    value: 'openstack-vtemplate'
+    label: 'Template Account'
+    description: 'SolidFire account to use to hold the template cache.'
+    weight: 152
+    type: "text"
+  solidfire_account_prefix:
+    value: ''
+    label: 'SF account prefix'
+    description: 'Prefix to use for all SolidFire accounts related to this OpenStack Cloud.'
+    weight: 170
+    type: "text"
+  solidfire_volume_prefix:
+    value: 'UUID-'
+    label: 'SF volume prefix'
+    description: 'Prefix to use for all SolidFire volumes related to this OpenStaack Cloud.'
+    weight: 180
     type: 'text'
