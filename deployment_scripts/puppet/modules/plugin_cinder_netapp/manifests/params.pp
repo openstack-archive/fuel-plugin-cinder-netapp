@@ -6,17 +6,18 @@ class plugin_cinder_netapp::params (
   $cinder_netapp = hiera_hash('cinder_netapp', {})
   $storage_hash  = hiera_hash('storage_hash', {})
 
-  if ($storage_hash['volume_backend_names']['volumes_lvm']) {
-    $backend_type        = $storage_hash['volume_backend_names']['volumes_lvm']
-    $backend_name        = 'cinder_iscsi'
-    $volume_backend_name = 'volumes_lvm'
+  if ($storage_hash['volume_backend_names']['lvm']) {
+    $backend_type        = $storage_hash['volume_backend_names']['lvm']
+    $backend_name        = 'lvm'
+    $volume_backend_name = 'lvm'
     $backend_class       = 'plugin_cinder_netapp::backend::iscsi'
-  } elsif ($storage_hash['volume_backend_names']['volumes_ceph']) {
-    $backend_type        = $storage_hash['volume_backend_names']['volumes_ceph']
-    $backend_name        = 'cinder_rbd'
-    $volume_backend_name = 'volumes_ceph'
+  } elsif ($storage_hash['volume_backend_names']['ceph']) {
+    $backend_type        = $storage_hash['volume_backend_names']['ceph']
+    $backend_name        = 'ceph'
+    $volume_backend_name = 'ceph'
     $backend_class       = 'plugin_cinder_netapp::backend::rbd'
   }
 
   $netapp_backend_class = 'plugin_cinder_netapp::backend::netapp'
+  $solidfire_backend_class = 'plugin_cinder_netapp::backend::solidfire'
 }

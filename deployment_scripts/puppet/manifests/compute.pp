@@ -6,20 +6,23 @@ $cinder_netapp = hiera_hash('cinder_netapp', {})
 
 Nova_config <||> ~> Service <||>
 
-if ($cinder_netapp['netapp_storage_protocol']) == 'iscsi' and ($cinder_netapp['use_multipath_for_image_xfer']) {
-  package { 'multipath-tools': }
+# we don't need to do this for SolidFire, so only do it for NetApp devices.
+if ($cinder_netapp['netapp_enabled']) {
+  if ($cinder_netapp['netapp_storage_protocol']) == 'iscsi' and ($cinder_netapp['use_multipath_for_image_xfer']) {
+    package { 'multipath-tools': }
 
-  nova_config {
-    'libvirt/iscsi_use_multipath': value => true;
-  }
-}
-
-if ($cinder_netapp['netapp_storage_protocol']) == 'nfs' {
-  package { 'nfs-common': }
-
-  if $cinder_netapp['nfs_mount_options'] {
     nova_config {
-      'libvirt/nfs_mount_options': value => $cinder_netapp['nfs_mount_options'];
+      'libvirt/iscsi_use_multipath': value => true;
+    }
+  }
+
+  if ($cinder_netapp['netapp_storage_protocol']) == 'nfs' {
+    package { 'nfs-common': }
+
+    if $cinder_netapp['nfs_mount_options'] {
+      nova_config {
+        'libvirt/nfs_mount_options': value => $cinder_netapp['nfs_mount_options'];
+      }
     }
   }
 }

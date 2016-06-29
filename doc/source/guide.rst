@@ -2,7 +2,8 @@
 Configuring NetApp plugin
 =========================
 
-Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack environments that use NetApp storage as a Cinder backend.
+Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack environments that use NetApp and/or SolidFire
+storage as a Cinder backend.
 
 #. Create an OpenStack environment using the Fuel UI wizard:
 
@@ -19,12 +20,12 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
       :width: 40%
 
 #. Configure the plugin.Select **MOS Backend Enabled** checkbox
-   if you would like Cinder NetApp driver to be used along with default beckend for MOS Cinder:
+   if you would like Cinder NetApp drivers to be used along with default beckend for MOS Cinder:
 
    .. image:: images/default_backend.png
       :width: 50%
 
-#. Choose storage family and storage protocol. Several options are available.
+#. Choose NetApp storage family and storage protocol. Several options are available.
 
    - If you plan to use Clustered Data mode through NFS, click **Clustered Data ONTAP**
      radio button and select *NFS* option in **NetApp Storage Protocol**.

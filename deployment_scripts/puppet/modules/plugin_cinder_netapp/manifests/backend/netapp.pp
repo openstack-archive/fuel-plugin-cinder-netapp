@@ -1,7 +1,7 @@
 # Defined type form upstream puppet cinder module is not used because is outdated and doesn't support last changes in Cinder NetApp driver.
 
 class plugin_cinder_netapp::backend::netapp (
-  $netapp_backend_name    = 'cinder_netapp',
+  $netapp_backend_name    = $name,
   $cinder_netapp          = $plugin_cinder_netapp::params::cinder_netapp,
   $nfs_shares_config      = '/etc/cinder/shares.conf',
   $netapp_webservice_path = '/devmgr/v2',

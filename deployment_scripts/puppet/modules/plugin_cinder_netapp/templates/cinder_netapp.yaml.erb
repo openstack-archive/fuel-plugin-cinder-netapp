@@ -1,7 +1,8 @@
 storage_hash:
   volume_backend_names:
-    netapp: cinder_netapp
+    netapp: netapp
+    solidfire: solidfire
 <% if ! @default_backend -%>
-    volumes_lvm: false
-    volumes_ceph: false
+    lvm: false
+    ceph: false
 <% end -%>
