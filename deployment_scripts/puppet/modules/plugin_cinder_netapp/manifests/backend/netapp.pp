@@ -1,15 +1,16 @@
 # Defined type form upstream puppet cinder module is not used because is outdated and doesn't support last changes in Cinder NetApp driver.
 
 class plugin_cinder_netapp::backend::netapp (
-  $netapp_backend_name    = 'cinder_netapp',
-  $cinder_netapp          = $plugin_cinder_netapp::params::cinder_netapp,
+  $backend_name 	  = 'netapp',
+  $cinder_netapp          = $plugin_cinder_netapp::cinder_netapp,
   $nfs_shares_config      = '/etc/cinder/shares.conf',
   $netapp_webservice_path = '/devmgr/v2',
 ) {
 
-  include plugin_cinder_netapp::params
   include cinder::params
 
+  #compatibility
+  $netapp_backend_name    = $backend_name
   # Sets correct parameter for <host_type> depending on storage family
   if ($cinder_netapp['netapp_storage_family']) == 'eseries' {
     $host_type = $cinder_netapp['netapp_eseries_host_type']
@@ -38,7 +39,7 @@ class plugin_cinder_netapp::backend::netapp (
 
   # We need following packages to create a root volume during an instance spawning
   if ($cinder_netapp['netapp_storage_protocol']) == 'iscsi' {
-    package { 'open-iscsi': }
+#    package { 'open-iscsi': }
 
     if ($cinder_netapp['use_multipath_for_image_xfer']) {
       package { 'multipath-tools': }
@@ -52,7 +53,7 @@ class plugin_cinder_netapp::backend::netapp (
   Cinder_config <||> -> Plugin_cinder_netapp::Backend::Enable_backend[$netapp_backend_name] ~> Service <||>
 
   cinder_config {
-    "$netapp_backend_name/volume_backend_name":             value => 'cinder_netapp';
+    "$netapp_backend_name/volume_backend_name":             value => $backend_name;
     "$netapp_backend_name/volume_driver":                   value => 'cinder.volume.drivers.netapp.common.NetAppDriver';
     "$netapp_backend_name/netapp_login":                    value => $cinder_netapp['netapp_login'];
     "$netapp_backend_name/netapp_password":                 value => $netapp_password;
@@ -85,6 +86,4 @@ class plugin_cinder_netapp::backend::netapp (
 
   # Adds the backend in <enabled_backends> parameter
   plugin_cinder_netapp::backend::enable_backend { $netapp_backend_name: }
-
-  service { $cinder::params::volume_service: }
 }

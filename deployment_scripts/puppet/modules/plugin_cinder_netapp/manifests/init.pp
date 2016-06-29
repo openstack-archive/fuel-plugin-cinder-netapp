@@ -1,20 +1,27 @@
-class plugin_cinder_netapp (
-  $cinder_netapp        = $plugin_cinder_netapp::params::cinder_netapp,
-  $backend_name         = $plugin_cinder_netapp::params::backend_name,
-  $backend_type         = $plugin_cinder_netapp::params::backend_type,
-  $backend_class        = $plugin_cinder_netapp::params::backend_class,
-  $netapp_backend_class = $plugin_cinder_netapp::params::netapp_backend_class,
-) inherits plugin_cinder_netapp::params {
+class plugin_cinder_netapp  {
 
-  if ($cinder_netapp['default_backend']) {
+  $config_file = '/etc/cinder/cinder.conf'
+  $cinder_netapp = hiera_hash('cinder_netapp', {})
+  $storage_hash  = hiera_hash('storage', {})
+  $netapp_backend_class = 'plugin_cinder_netapp::backend::netapp'
+  $solidfire_backend_class = 'plugin_cinder_netapp::backend::solidfire'
 
-    Class[$backend_class] -> Class[$netapp_backend_class]
+  # if Netapp is using iSCSI or SolidFire we need to install iscsi
+  if ($cinder_netapp['netapp_storage_protocol']) == 'iscsi' or $cinder_netapp['solidfire_enabled'] {
+    package { 'open-iscsi': }
+  }
 
-    class { $backend_class:
-      backend_type => $backend_type,
-      backend_name => $backend_name,
+  if ($cinder_netapp['netapp_enabled']) {
+    class { $netapp_backend_class:
+       backend_name => 'netapp'
+    }
+  }
+  if ($cinder_netapp['solidfire_enabled']) {
+    class { $solidfire_backend_class:
+       backend_name => 'solidfire',
     }
   }
 
-  class { $netapp_backend_class: }
+  service { $cinder::params::volume_service: }
+
 }

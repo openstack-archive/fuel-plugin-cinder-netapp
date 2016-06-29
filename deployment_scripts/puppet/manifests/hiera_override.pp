@@ -3,11 +3,13 @@
 notice('MODULAR: netapp-hiera-override')
 
 $cinder_netapp   = hiera_hash('cinder_netapp', {})
-$default_backend = $cinder_netapp['default_backend']
 
 $hiera_dir    = '/etc/hiera/plugins'
 $plugin_yaml  = 'cinder_netapp.yaml'
 $plugin_name  = 'cinder_netapp'
+
+$netapp_enabled = $cinder_netapp['netapp_enabled']
+$solidfire_enabled = $cinder_netapp['solidfire_enabled']
 
 file { $hiera_dir:
   ensure => directory,

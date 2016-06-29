@@ -1,6 +1,6 @@
 - name: 'storage:block:backend:netapp'
   label: 'Cinder NetApp'
-  description: 'Cinder with NetApp backend'
+  description: 'Cinder with NetApp and/or SolidFire backend'
   compatible:
     - name: 'storage:block:backend:ceph'
     - name: 'storage:block:backend:lvm'
