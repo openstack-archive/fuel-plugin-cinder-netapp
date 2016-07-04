@@ -1,13 +1,6 @@
 attributes:
   metadata:
     group: 'storage'
-  default_backend:
-    value: false
-    label: 'MOS Backend Enabled'
-    description: 'If the option is checked, MOS default backend (LVM over iSCSI\Ceph) will be used along with NetApp'
-    weight: 10
-    type: 'checkbox'
-
 # Storage Type
   netapp_storage_family:
     value: 'ontap_cluster'

@@ -1,8 +1,8 @@
-# The task modifies hiera data to have right set cinder-types
+# The task modifies hiera data to add new cinder-types
 - id: netapp_hiera_override
   type: puppet
-  version: 2.0.0
-  groups: [primary-controller, controller, cinder]
+  version: 2.1.0
+  groups: [primary-controller]
   requires: [hiera]
   required_for: [create-cinder-types]
   parameters:
@@ -10,14 +10,58 @@
     puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
-# The task is executed on controller nodes only in particular cases
-# See site.pp for more details
+# Execute on controllers only if ceph used for volumes.
+# For LCM inherit condition from openstack-cinder
+# otherwise enabled_backends will be overwritten.
+# https://bugs.launchpad.net/puppet-cinder/+bug/1598094
+- id: netapp_cinder_controller
+  type: puppet
+  version: 2.1.0
+  groups: [primary-controller, controller]
+  requires: [openstack-cinder]
+  required_for: [deploy_end]
+  condition:
+    yaql_exp: >
+      $.storage.volumes_ceph and
+      changedAny($.cinder_netapp, $.network_scheme, $.cinder, $.network_metadata.vips,
+      $.get('cinder_volume_group'), $.storage, $.ceilometer, $.sahara,
+      $.rabbit, $.get('region', 'RegionOne'), $.get('use_ssl'),
+      ('primary-controller' in $.roles), $.get('proxy_port'),
+      $.get('kombu_compression'), $.get('keystone_endpoint'),
+      $.get('glance_endpoint'), $.get('glance_api_servers'),
+      $.get('use_syslog'), $.get('use_stderr'), $.get('verbose'), $.debug,
+      $.network_metadata.nodes.values().where(
+        $.node_roles.any($.matches('controller'))).network_roles.select(
+          $.get('mgmt/messaging')),
+      $.get('amqp_hosts'), $.get('syslog_log_facility_cinder'),
+      $.get('cinder_rate_limits'),
+      $.configuration.get('cinder_api_paste_ini'), $.configuration.get('cinder'))
+  parameters:
+    puppet_manifest: puppet/manifests/site.pp
+    puppet_modules:  puppet/modules:/etc/puppet/modules
+    timeout: 360
+
+# For LCM inherit condition from top-role-cinder
+# otherwise enabled_backends will be overwritten.
+# https://bugs.launchpad.net/puppet-cinder/+bug/1598094
 - id: netapp_cinder
   type: puppet
-  version: 2.0.0
-  role: [primary-controller, controller, cinder]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
+  version: 2.1.0
+  groups: [cinder]
+  requires: [top-role-cinder]
+  required_for: [deploy_end]
+  condition:
+    yaql_exp: >
+      changedAny($.cinder_netapp, $.cinder, $.get('cinder_volume_group'),
+      $.network_metadata.nodes.get(concat("node-", $.uid)).network_roles.get('cinder/iscsi'),
+      $.network_metadata.vips, $.debug, $.node_volumes, $.storage, $.rabbit, $.ceilometer,
+      $.get('use_stderr'), $.get('use_syslog'), $.get('syslog_log_facility_cinder'),
+      $.get('syslog_log_facility_ceph'), $.get('proxy_port'), $.get('kombu_compression'),
+      $.get('use_ssl'), $.get('service_endpoint'), $.get('glance_api_servers'),
+      $.get('amqp_hosts'),
+      $.network_metadata.nodes.values().where(
+        $.node_roles.any($.matches('controller'))).network_roles.select(
+          $.get('mgmt/messaging')))
   parameters:
     puppet_manifest: puppet/manifests/site.pp
     puppet_modules:  puppet/modules:/etc/puppet/modules
@@ -25,23 +69,29 @@
 
 - id: netapp_compute
   type: puppet
-  version: 2.0.0
+  version: 2.1.0
   groups: [compute]
   requires: [top-role-compute]
   required_for: [deploy_end]
+  condition:
+    yaql_exp: "changed($.cinder_netapp)"
   parameters:
     puppet_manifest: puppet/manifests/compute.pp
     puppet_modules:  puppet/modules:/etc/puppet/modules
     timeout: 360
 
-- id: deleting_old_cinder_volume_services
-  type: shell
-  version: 2.0.0
-  role: [primary-controller]
-  requires: [post_deployment_start]
-  required_for: [post_deployment_end]
+# Fix hot pluggability.
+# Override create-cinder-types task with
+# additional dependency on "cinder_netapp".
+- id: create-cinder-types
+  type: puppet
+  version: 2.1.0
+  groups: [primary-controller]
+  requires: [openstack-cinder]
+  required_for: [deploy_end]
+  condition:
+    yaql_exp: "changedAny($.storage, $.cinder_netapp)"
   parameters:
-    cmd: . /root/openrc && for host in $(cinder service-list | grep 'cinder-volume.*enabled.*down' | awk '{ print $4}'); do cinder-manage service remove cinder-volume $host; done
-    retries: 3
-    interval: 20
-    timeout: 180
+    puppet_manifest: /etc/puppet/modules/openstack_tasks/examples/openstack-cinder/create_cinder_types.pp
+    puppet_modules: /etc/puppet/modules
+    timeout: 1200

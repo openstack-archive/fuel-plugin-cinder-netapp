@@ -3,7 +3,6 @@
 notice('MODULAR: netapp-hiera-override')
 
 $cinder_netapp   = hiera_hash('cinder_netapp', {})
-$default_backend = $cinder_netapp['default_backend']
 
 $hiera_dir    = '/etc/hiera/plugins'
 $plugin_yaml  = 'cinder_netapp.yaml'

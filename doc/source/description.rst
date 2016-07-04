@@ -22,10 +22,8 @@ Features
 * Clustered Data ONTAP as a backend for Cinder with NFS or iSCSI data-transfer protocols
 * Data ONTAP 7-Mode as a backend for Cinder with NFS or iSCSI data-transfer protocols
 * E-Series or EF-Series as a backend for Cinder with iSCSI data-transfer protocol
-* Supports multi backend feature. The plugin does not overwrite ``enabled_backends`` option
-  thereby allowing use other plugins for Cinder.
-* Allows using NetApp as a backend for Cinder along with MOS default backends - ``LVM over iSCSI`` or ``Ceph``
-* Supports all configuration options of NetApp Cinder driver for Liberty
+* Supports Cinder multibackend
+* Supports all configuration options of NetApp Cinder driver for Mitaka
 
 
 Requirements
@@ -33,7 +31,7 @@ Requirements
 ======================= =================================
 Requirement             Version/Comment
 ======================= =================================
-Fuel                    8.0
+Fuel                    9.0
 NetApp Storage System   Clustered ONTAP Data
 
                         Data ONTAP 7-Mode
@@ -53,19 +51,20 @@ Prerequisites
 
 Release Notes
 -------------
-* Added true support of multi backends
-* Legacy of CentOS support for iSCSI was removed
-* Added comments to source code
-* Documentation is updated\fixed
+* Added MOS 9.0 support
+* Removed code related to MOS backends
+* Added MOS LCM support (Experimental)
 
 Limitations
 -----------
-* Deployment fails if ``cinder`` role is not assigned to ``controller`` nodes
 * Only one NetApp backend can be configured to work with Cinder
 * Before creating Ubuntu repository's mirrors in Fuel, you have to manually add to /usr/share/fuel-mirror/ubuntu.yaml following packages:
+
   * nfs-common
   * open-iscsi
   * multipath-tools
+
+* MOS LCM support is in experimental mode
 
 .. _the official NetApp ONTAP documentation: http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30092
 .. _the official NetApp E-Series documentation: https://mysupport.netapp.com/info/web/ECMP1658252.html

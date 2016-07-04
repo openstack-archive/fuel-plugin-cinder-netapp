@@ -4,7 +4,7 @@ Cinder NetApp plugin for Fuel
 Overview
 --------
 
-The plugin can replace Cinder default backend by Cinder NetApp backend or work in parallel. ``LVM over iSCSI`` and ``Ceph`` are two choices, which can be used as a default backend for Cinder. The plugin does not overwrite ``enabled_backends`` option that allows to use it with other plugins for Cinder backends.
+The plugin configures NetApp backend for Cinder using multibackend feature.
 
 
 The plugin support following storage families:
@@ -20,12 +20,20 @@ Requirements
 
 | Requirement                                                                              | Version/Comment                                                        |
 |------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
-| Mirantis Openstack compatibility                                                         | 8.0                                                                    |
-| Netapp filer or appliance is reachable via one of the Mirantis OpenStack networks        | Data ONTAP or E-Series/EF-Series storage family with NTS\iSCSI enabled |
+| Mirantis Openstack compatibility                                                         | 9.0                                                                    |
+| Netapp filer or appliance is reachable via one of the Mirantis OpenStack networks        | Data ONTAP or E-Series/EF-Series storage family with NFS\iSCSI enabled |
 
 
 Release Notes
 -------------
+
+**5.0.0**
+
+* Added MOS 9.0 support
+
+* Removed code related to MOS backends
+
+* Added MOS LCM support (Experimental)
 
 **4.2.1**
 

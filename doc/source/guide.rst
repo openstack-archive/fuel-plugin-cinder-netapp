@@ -18,12 +18,6 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
    .. image:: images/select-checkbox.png
       :width: 40%
 
-#. Configure the plugin.Select **MOS Backend Enabled** checkbox
-   if you would like Cinder NetApp driver to be used along with default beckend for MOS Cinder:
-
-   .. image:: images/default_backend.png
-      :width: 50%
-
 #. Choose storage family and storage protocol. Several options are available.
 
    - If you plan to use Clustered Data mode through NFS, click **Clustered Data ONTAP**
@@ -98,7 +92,6 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
         :width: 100%
 
 #. Using *Nodes* tab, `add nodes and assign roles to them`_.
-   Please, note that all controller nodes **MUST** be configured with Cinder role as well.
 
 #. This step is needed only when local fuel mirrors are used
    Following packages ``nfs-common``, ``open-iscsi``, ``multipath-tools`` aren't included by default when local mirror is created. To have these packages available during deploy you have to add them into  ``/usr/share/fuel-mirror/ubuntu.yaml`` file in ``packages: &packages`` section.
