@@ -4,7 +4,7 @@ class plugin_cinder_netapp::params (
   $config_file = '/etc/cinder/cinder.conf'
 
   $cinder_netapp = hiera_hash('cinder_netapp', {})
-  $storage_hash  = hiera_hash('storage_hash', {})
+  $storage_hash  = hiera_hash('storage', {})
 
   if ($storage_hash['volume_backend_names']['volumes_lvm']) {
     $backend_type        = $storage_hash['volume_backend_names']['volumes_lvm']

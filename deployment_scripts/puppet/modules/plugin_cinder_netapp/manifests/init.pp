@@ -6,13 +6,13 @@ class plugin_cinder_netapp (
   $netapp_backend_class = $plugin_cinder_netapp::params::netapp_backend_class,
 ) inherits plugin_cinder_netapp::params {
 
-  if ($cinder_netapp['default_backend']) {
+  # If not selected disable default MOS backends
+  if ! $cinder_netapp['default_backend'] {
 
-    Class[$backend_class] -> Class[$netapp_backend_class]
+    Cinder_config['DEFAULT/enabled_backends'] -> Class[$netapp_backend_class]
 
-    class { $backend_class:
-      backend_type => $backend_type,
-      backend_name => $backend_name,
+    cinder_config {
+      'DEFAULT/enabled_backends': ensure => absent;
     }
   }
 
