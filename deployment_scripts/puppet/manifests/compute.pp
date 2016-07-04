@@ -6,12 +6,12 @@ $cinder_netapp = hiera_hash('cinder_netapp', {})
 
 Nova_config <||> ~> Service <||>
 
+nova_config {
+  'libvirt/iscsi_use_multipath': value => $cinder_netapp['use_multipath_for_image_xfer'];
+}
+
 if ($cinder_netapp['netapp_storage_protocol']) == 'iscsi' and ($cinder_netapp['use_multipath_for_image_xfer']) {
   package { 'multipath-tools': }
-
-  nova_config {
-    'libvirt/iscsi_use_multipath': value => true;
-  }
 }
 
 if ($cinder_netapp['netapp_storage_protocol']) == 'nfs' {
