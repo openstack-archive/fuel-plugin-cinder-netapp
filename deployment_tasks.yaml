@@ -4,7 +4,7 @@
   version: 2.1.0
   groups: [primary-controller]
   requires: [hiera]
-  required_for: [create-cinder-types]
+  required_for: [globals, create-cinder-types]
   parameters:
     puppet_manifest: puppet/manifests/hiera_override.pp
     puppet_modules:  puppet/modules:/etc/puppet/modules
