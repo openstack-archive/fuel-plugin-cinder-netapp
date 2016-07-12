@@ -50,6 +50,7 @@ class plugin_cinder_netapp::backend::netapp (
 
 
   Cinder_config <||> -> Plugin_cinder_netapp::Backend::Enable_backend[$netapp_backend_name] ~> Service <||>
+  Cinder_config <||> ~> Service <||>
 
   cinder_config {
     "$netapp_backend_name/volume_backend_name":             value => 'cinder_netapp';

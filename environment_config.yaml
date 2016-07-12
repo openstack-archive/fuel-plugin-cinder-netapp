@@ -1,6 +1,13 @@
 attributes:
   metadata:
     group: 'storage'
+    restrictions:
+      - condition: "cluster:status == 'operational'"
+        action: "none"
+        message: |
+          WARNING: Make changes carefully for deployed plugin.
+          Lifecycle management is in EXPERIMENTAL mode.
+          INFO: HOT PLUG is fully supported.
 # Storage Type
   netapp_storage_family:
     value: 'ontap_cluster'
