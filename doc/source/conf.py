@@ -204,6 +204,9 @@ htmlhelp_basename = 'NetApppluginforFueldoc'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
+# No blank pages
+'classoptions': ',openany,oneside', 'babel': '\\usepackage[english]{babel}'
+
 # The paper size ('letterpaper' or 'a4paper').
 #'papersize': 'letterpaper',
 
@@ -221,7 +224,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'NetApppluginforFuel.tex', 'NetApp plugin for Fuel Documentation',
+    (master_doc, 'NetApppluginforFuel-' + version + '.tex', 'NetApp plugin for Fuel Documentation',
      u'Mirantis Inc.', 'manual'),
 ]
 
