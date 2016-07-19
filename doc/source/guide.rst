@@ -108,7 +108,12 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
 #. When the deployment is done, you may perform functional testing.
    You can find instructions in `NetApp Mirantis Unlocked Reference Architecture`_, paragraph 8.3. 
 
+   .. NOTE::
+      Only if using Ceph. Do not be confused by error when
+      removing Ceph OSD node. For details see `Fuel bug`_.
+
 .. _the instructions: http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/create-environment/start-create-env.html
 .. _add nodes and assign roles to them: http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/add-nodes.html
 .. _Deploy button: http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment/deploy-changes.html
 .. _NetApp Mirantis Unlocked Reference Architecture: http://content.mirantis.com/Mirantis-NetApp-Reference-Architecture-Landing-Page.html
+.. _Fuel bug: https://bugs.launchpad.net/fuel/+bug/1604386
