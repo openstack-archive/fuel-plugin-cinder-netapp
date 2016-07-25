@@ -18,7 +18,7 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
    .. image:: images/select-checkbox.png
       :width: 40%
 
-#. Choose storage family and storage protocol. Several options are available.
+#. Choose storage family and storage protocol. Several options are available. For details consult `Cinder NetApp driver configuration`_.
 
    - If you plan to use Clustered Data mode through NFS, click **Clustered Data ONTAP**
      radio button and select *NFS* option in **NetApp Storage Protocol**.
@@ -117,3 +117,4 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
 .. _Deploy button: http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment/deploy-changes.html
 .. _NetApp Mirantis Unlocked Reference Architecture: http://content.mirantis.com/Mirantis-NetApp-Reference-Architecture-Landing-Page.html
 .. _Fuel bug: https://bugs.launchpad.net/fuel/+bug/1604386
+.. _Cinder NetApp driver configuration: https://netapp.github.io/openstack-deploy-ops-guide/mitaka/content/section_cinder-configuration.html
