@@ -13,7 +13,7 @@ attributes:
     value: 'ontap_cluster'
     values:
         - data: 'ontap_cluster'
-          label: 'Clustered Data ONTAP'
+          label: 'Clustered Data ONTAP/ONTAP 9'
           description: ''
         - data: 'ontap_7mode'
           label: 'Data ONTAP 7-Mode'
