@@ -8,7 +8,7 @@ The plugin configures NetApp backend for Cinder using multibackend feature.
 
 
 The plugin support following storage families:
- - Clustered Data ONTAP
+ - Clustered Data ONTAP/ONTAP 9
  - Data ONTAP 7-Mode
  - E-Series/EF-Series
 
