@@ -2,11 +2,11 @@
 NetApp plugin
 =============
 
-The plugin provides support of ``Clustered Data ONTAP``, ``Data ONTAP 7-Mode`` and ``E-series`` storage clusters to Cinder.
+The plugin provides support of ``Clustered Data ONTAP/ONTAP 9``, ``Data ONTAP 7-Mode`` and ``E-series`` storage clusters to Cinder.
 The plugin uses NetApp unified driver, the latter is a
 block storage driver that supports multiple storage families and protocols.
 A storage family corresponds to storage systems built on different NetApp technologies
-such as Clustered Data ONTAP, Data ONTAP operating in 7-Mode,
+such as Clustered Data ONTAP/ONTAP 9, Data ONTAP operating in 7-Mode,
 and E-Series.
 The storage protocol refers to the protocol used to initiate data
 storage and access operations on those storage systems like iSCSI and NFS.
@@ -19,7 +19,7 @@ storage families and protocols.
 
 Features
 --------
-* Clustered Data ONTAP as a backend for Cinder with NFS or iSCSI data-transfer protocols
+* Clustered Data ONTAP/ONTAP 9 as a backend for Cinder with NFS or iSCSI data-transfer protocols
 * Data ONTAP 7-Mode as a backend for Cinder with NFS or iSCSI data-transfer protocols
 * E-Series or EF-Series as a backend for Cinder with iSCSI data-transfer protocol
 * Supports Cinder multibackend
@@ -32,7 +32,7 @@ Requirements
 Requirement             Version/Comment
 ======================= =================================
 Fuel                    9.0
-NetApp Storage System   Clustered ONTAP Data
+NetApp Storage System   Clustered Data ONTAP/ONTAP 9
 
                         Data ONTAP 7-Mode
 
@@ -42,7 +42,7 @@ NetApp Storage System   Clustered ONTAP Data
 
 Prerequisites
 -------------
-* If you plan to use the plugin with **Data ONTAP 7-Mode** or **Clustered ONTAP Data**, please make sure
+* If you plan to use the plugin with **Data ONTAP 7-Mode** or **Clustered Data ONTAP/ONTAP 9**, please make sure
   that it is configured, up and running. For instructions, see `the official NetApp ONTAP documentation`_.
 
 

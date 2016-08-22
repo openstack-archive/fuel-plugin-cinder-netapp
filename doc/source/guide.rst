@@ -20,7 +20,7 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
 
 #. Choose storage family and storage protocol. Several options are available. For details consult `Cinder NetApp driver configuration`_.
 
-   - If you plan to use Clustered Data mode through NFS, click **Clustered Data ONTAP**
+   - If you plan to use Clustered Data mode through NFS, click **Clustered Data ONTAP/ONTAP 9**
      radio button and select *NFS* option in **NetApp Storage Protocol**.
      You should also choose NetApp transport type (http or https).
 
@@ -36,7 +36,7 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
      .. image:: images/cmode_nfs.png
         :width: 100%
 
-   - If you plan to use Clustered Data mode through iSCSI, click **Clustered Data ONTAP**
+   - If you plan to use Clustered Data mode through iSCSI, click **Clustered Data ONTAP/ONTAP 9**
      radiobutton and select *iSCSI* option in **NetApp Storage Protocol**.
      You should also choose NetApp transport type (http or https).
 
