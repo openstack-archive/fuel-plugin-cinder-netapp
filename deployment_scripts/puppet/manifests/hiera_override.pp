@@ -4,9 +4,11 @@ notice('MODULAR: netapp-hiera-override')
 
 $cinder_netapp   = hiera_hash('cinder_netapp', {})
 
-$hiera_dir    = '/etc/hiera/plugins'
-$plugin_yaml  = 'cinder_netapp.yaml'
-$plugin_name  = 'cinder_netapp'
+$hiera_dir   = '/etc/hiera/plugins'
+$plugin_yaml = 'cinder_netapp.yaml'
+$plugin_name = 'cinder_netapp'
+
+$number_netapp_backends = $cinder_netapp['number_netapp_backends']
 
 file { $hiera_dir:
   ensure => directory,
