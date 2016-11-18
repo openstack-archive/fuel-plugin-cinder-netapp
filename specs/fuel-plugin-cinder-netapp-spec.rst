@@ -10,18 +10,19 @@ Fuel Cinder NetApp plugin specification
 
 Overview
 --------
-The plugin can replace Cinder default backend in MOS by Cinder NetApp backend or work in parallel. ``LVM over iSCSI`` and ``Ceph`` are two choices, which can be used as a default backend for Cinder. The plugin does not overwrite ``enabled_backends`` option that allows to use it with other plugins for Cinder backends.
+The plugin doesn't replace Cinder default backend in MOS but work in parallel. ``LVM over iSCSI`` and ``Ceph`` are two choices, which can be used as a default backend for Cinder. The plugin does not overwrite ``enabled_backends`` option that allows to use it with other plugins for Cinder backends. The plugin supports using up to 3 NetApp devices simultaneously. 7-Mode ONTAP Data support is disabled by default.
 
 This repo contains all necessary files to build Cinder NetApp Fuel plugin.
 
 Problem description
 -------------------
-This integration should be supported with the upstream version of Fuel product. Mirantis Openstack 8.0 release has Pluggable Architecture feature, that prevents developers from bringing any changes to the core product. Instead, the NetApp integration functionality can be implemented as a plugin for Fuel.
+This integration should be supported with the upstream version of Fuel product. Mirantis Openstack 9.1 release has Pluggable Architecture feature, that prevents developers from bringing any changes to the core product. Instead, the NetApp integration functionality can be implemented as a plugin for Fuel.
 
 The plugin support following storage families:
  - Clustered Data ONTAP
- - Data ONTAP 7-Mode
+ - SolidFire
  - E-Series/EF-Series
+ - 7-Mode ONTAP Data (disabled by default)
 
 User Story 1: Clustered Data ONTAP devices with NFS and iSCSI modes
 -------------------------------------------------------------------
@@ -124,7 +125,38 @@ Data ONTAP 7-Mode via iSCSI:
 
    - ``open-iscsi`` and ``multipath-tools`` should be installed
 
-User Story 3: E-Series/EF-Series devices with iSCSI mode
+
+User Story 3: SolidFire devices with iSCSI mode
+--------------------------------------------------------
+This case will provide availability to configure OpenStack compute instances to access SolidFire storage systems. To enable this functionality, the following changes should be added:
+
+SolidFire via iSCSI:
+=============================
+ * All cinder hosts should have following configuration in *<cinder.conf>*::
+
+
+    [cinder_netapp]
+      sf_api_port = CLUSTER_ENDPOINT_PORT
+      sf_svip =
+      sf_volume_prefix = SF_VOLUME_PREFIX
+      sf_enable_vag = False
+      sf_account_prefix =
+      sf_allow_template_caching = TEMPLATE_CACHING
+      san_login = LOGIN
+      sf_template_account_name = TEMPLATE_ACCOUNT
+      san_password = PASSWORD
+      sf_emulate_512 = True
+      volume_driver = cinder.volume.drivers.solidfire.SolidFireDriver
+      backend_host = str:netapp
+      san_ip = CLUSTER_MVIP
+      sf_enable_volume_mapping = True
+      volume_backend_name = cinder_netapp_backend_2
+      sf_allow_tenant_qos = False
+
+  Where ``san_ip``, ``san_password``, ``san_login``  should be configured through the Fuel Web UI in Cinder and NetApp integration section of the **Settings** tab.
+
+
+User Story 4: E-Series/EF-Series devices with iSCSI mode
 --------------------------------------------------------
 This case will provide availability to configure OpenStack compute instances to access E-Series/EF-Series storage systems. To enable this functionality following changes should be added:
 
