@@ -9,7 +9,7 @@ The plugin configures NetApp backend for Cinder using multibackend feature.
 
 The plugin support following storage families:
  - Clustered Data ONTAP/ONTAP 9
- - Data ONTAP 7-Mode
+ - SolidFire
  - E-Series/EF-Series
 
 This repo contains all necessary files to build Cinder NetApp Fuel plugin.
@@ -18,14 +18,22 @@ This repo contains all necessary files to build Cinder NetApp Fuel plugin.
 Requirements
 ------------
 
-| Requirement                                                                              | Version/Comment                                                        |
-|------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
-| Mirantis Openstack compatibility                                                         | 9.0                                                                    |
-| Netapp filer or appliance is reachable via one of the Mirantis OpenStack networks        | Data ONTAP or E-Series/EF-Series storage family with NFS\iSCSI enabled |
+| Requirement                                                                              | Version/Comment                                                                             |
+|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| Mirantis Openstack compatibility                                                         | 9.0, 9.1                                                                                    |
+| Netapp filer or appliance is reachable via one of the Mirantis OpenStack networks        | Clustered Data ONTAP, SolidFire or E-Series/EF-Series storage family with NFS\iSCSI enabled |
 
 
 Release Notes
 -------------
+
+**6.0.0**
+
+* The number of simultaneously supported devices has been increased up to 3 NetApp devices
+
+* Added SolidFire suport
+
+* ONTAP 7-Mode support has been disabled
 
 **5.0.0**
 
