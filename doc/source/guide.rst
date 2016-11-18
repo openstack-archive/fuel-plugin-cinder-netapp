@@ -7,7 +7,8 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
 #. Create an OpenStack environment using the Fuel UI wizard:
 
    .. image:: images/create_env.png
-      :width: 90%
+      :scale: 100%
+      :align: center
 
 #. Finish environment creation following `the instructions`_.
 
@@ -16,7 +17,14 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
    checkbox:
 
    .. image:: images/select-checkbox.png
-      :width: 40%
+      :scale: 100%
+      :align: center
+
+#. Choose the number of NetApp backends to use:
+
+   .. image:: images/netapp_backends_number.png
+      :scale: 100%
+      :align: center
 
 #. Choose storage family and storage protocol. Several options are available. For details consult `Cinder NetApp driver configuration`_.
 
@@ -34,7 +42,8 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
      - Storage Virtual Machine
 
      .. image:: images/cmode_nfs.png
-        :width: 100%
+        :width: 70%
+        :align: center
 
    - If you plan to use Clustered Data mode through iSCSI, click **Clustered Data ONTAP/ONTAP 9**
      radiobutton and select *iSCSI* option in **NetApp Storage Protocol**.
@@ -48,34 +57,8 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
      - Storage Virtual Machine
 
      .. image:: images/cmode_iscsi.png
-        :width: 100%
-
-   - If you plan to use 7-Mode through NFS, click **Data ONTAP 7-Mode**
-     radiobutton and select *NFS* option in **NetApp Storage Protocol**.
-     You should also choose NetApp transport type (http or https).
-
-     Specify the following parameters in the text fields:
-
-     - Username
-     - Password
-     - NetApp Storage Hostname/IP
-     - CDOT Data LIF IP address
-     - CDOT FlexVol volume junction path
-
-     .. image:: images/7mode_nfs.png
-        :width: 100%
-
-   - If you plan to use 7-Mode through iSCSI, click **Data ONTAP 7-Mode**
-     radiobutton and select *iSCSI* option in **NetApp Storage Protocol**.
-     You should also choose NetApp transport type (http or https).
-     Specify the following parameters in the text fields:
-
-     - Username
-     - Password
-     - NetApp Storage Hostname/IP
-
-     .. image:: images/7mode_iscsi.png
-        :width: 100%
+        :width: 70%
+        :align: center
 
    - If you plan to use E-Series or EF-Series, click **E-Series/EF-Series**
      radiobutton and select the only available *iSCSI* option in **NetApp Storage Protocol**.
@@ -89,7 +72,34 @@ Once the Fuel Cinder NetApp plugin has been installed, you can create OpenStack 
      - Storage Array Password
 
      .. image:: images/eseries.png
-        :width: 100%
+        :width: 70%
+        :align: center
+
+   - If you plan to use SolidFire, click **SolidFire**
+     radiobutton and select the only available *iSCSI* option in **NetApp Storage Protocol**.
+     Specify the following parameters in the text fields:
+
+     - Login for Cluster Admin account
+     - Password for Cluster Admin account
+     - Cluster MVIP
+
+     .. image:: images/solidfire.png
+        :width: 70%
+        :align: center
+
+#. When you use Clustered Data ONTAP or E-Series, you can configure additional options. These options are global, and will affect all the devices.
+
+  Global Options are Hidden:
+
+  .. image:: images/global_opts_hidden.png
+     :scale: 100%
+     :align: center
+
+  Global Options are Shown:
+
+  .. image:: images/global_opts_shown.png
+     :scale: 100%
+     :align: center
 
 #. Using *Nodes* tab, `add nodes and assign roles to them`_.
 
