@@ -47,7 +47,7 @@ if ($cinder_netapp["netapp_storage_family${name}"] in ['solidfire']) {
   # Adds the backend in <enabled_backends> parameter
   plugin_cinder_netapp::backend::enable_backend { $netapp_backend_name : }
 
-  if ! defined( Service ) {
+  if !defined( Service[$cinder::params::volume_service] ) {
     service { $cinder::params::volume_service : }
   }
 }
