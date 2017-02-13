@@ -186,18 +186,6 @@ attributes:
         action: 'hide'
 
 # NFS Shares
-  nfs_server_ip1:
-    value: ''
-    label: '1st NetApp Backend CDOT Data LIF IP address'
-    description: 'The Data LIF IP address is part of the NFS export location (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be 10.10.10.10)'
-    weight: 141
-    type: 'text'
-    regex:
-      source: '\S'
-      error: "This field cannot be empty"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_family1.value == 'solidfire' or settings:cinder_netapp.number_netapp_backends.value != '1' and settings:cinder_netapp.number_netapp_backends.value != '2' and settings:cinder_netapp.number_netapp_backends.value != '3' or settings:cinder_netapp.netapp_storage_protocol1.value != 'nfs'"
-        action: 'hide'
   nb_share1:
     type: 'select'
     weight: 142
@@ -218,8 +206,8 @@ attributes:
         action: 'hide'
   nfs_server_share11:
     value: ''
-    label: 'CDOT FlexVol volume junction path'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be /cinder_flexvol)'
+    label: 'CDOT FlexVol volume path 1'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol)'
     weight: 143
     type: 'text'
     regex:
@@ -230,8 +218,8 @@ attributes:
         action: 'hide'
   nfs_server_share12:
     value: ''
-    label: 'CDOT FlexVol volume junction path 2'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_2, this value will be /cinder_flexvol_2)'
+    label: 'CDOT FlexVol volume path 2'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_2)'
     weight: 144
     type: 'text'
     restrictions:
@@ -239,8 +227,8 @@ attributes:
         action: 'hide'
   nfs_server_share13:
     value: ''
-    label: 'CDOT FlexVol volume junction path 3'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_3, this value will be /cinder_flexvol_3)'
+    label: 'CDOT FlexVol volume path 3'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_3)'
     weight: 145
     type: 'text'
     restrictions:
@@ -248,8 +236,8 @@ attributes:
         action: "hide"
   nfs_server_share14:
     value: ''
-    label: 'CDOT FlexVol volume junction path 4'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_4, this value will be /cinder_flexvol_4)'
+    label: 'CDOT FlexVol volume path 4'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_4)'
     weight: 146
     type: 'text'
     restrictions:
@@ -536,18 +524,6 @@ attributes:
         action: 'hide'
 
 # NFS Shares
-  nfs_server_ip2:
-    value: ''
-    label: '2nd NetApp Backend CDOT Data LIF IP address'
-    description: 'The Data LIF IP address is part of the NFS export location (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be 10.10.10.10)'
-    weight: 241
-    type: 'text'
-    regex:
-      source: '\S'
-      error: "This field cannot be empty"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_family2.value == 'solidfire' or settings:cinder_netapp.number_netapp_backends.value != '2' and settings:cinder_netapp.number_netapp_backends.value != '3' or settings:cinder_netapp.netapp_storage_protocol2.value != 'nfs'"
-        action: 'hide'
   nb_share2:
     type: 'select'
     weight: 242
@@ -568,8 +544,8 @@ attributes:
         action: 'hide'
   nfs_server_share21:
     value: ''
-    label: 'CDOT FlexVol volume junction path'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be /cinder_flexvol)'
+    label: 'CDOT FlexVol volume path'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol)'
     weight: 243
     type: 'text'
     regex:
@@ -580,8 +556,8 @@ attributes:
         action: 'hide'
   nfs_server_share22:
     value: ''
-    label: 'CDOT FlexVol volume junction path 2'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_2, this value will be /cinder_flexvol_2)'
+    label: 'CDOT FlexVol volume path 2'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_2)'
     weight: 244
     type: 'text'
     restrictions:
@@ -589,8 +565,8 @@ attributes:
         action: 'hide'
   nfs_server_share23:
     value: ''
-    label: 'CDOT FlexVol volume junction path 3'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_3, this value will be /cinder_flexvol_3)'
+    label: 'CDOT FlexVol volume path 3'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_3)'
     weight: 245
     type: 'text'
     restrictions:
@@ -598,8 +574,8 @@ attributes:
         action: "hide"
   nfs_server_share24:
     value: ''
-    label: 'CDOT FlexVol volume junction path 4'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_4, this value will be /cinder_flexvol_4)'
+    label: 'CDOT FlexVol volume path 4'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_4)'
     weight: 246
     type: 'text'
     restrictions:
@@ -886,18 +862,6 @@ attributes:
         action: 'hide'
 
 # NFS Shares
-  nfs_server_ip3:
-    value: ''
-    label: '3rd NetApp Backend CDOT Data LIF IP address'
-    description: 'The Data LIF IP address is part of the NFS export location (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be 10.10.10.10)'
-    weight: 341
-    type: 'text'
-    regex:
-      source: '\S'
-      error: "This field cannot be empty"
-    restrictions:
-      - condition: "settings:cinder_netapp.netapp_storage_family3.value == 'solidfire' or settings:cinder_netapp.number_netapp_backends.value != '3' or settings:cinder_netapp.netapp_storage_protocol3.value != 'nfs'"
-        action: 'hide'
   nb_share3:
     type: 'select'
     weight: 342
@@ -918,8 +882,8 @@ attributes:
         action: 'hide'
   nfs_server_share31:
     value: ''
-    label: 'CDOT FlexVol volume junction path'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol, this value will be /cinder_flexvol)'
+    label: 'CDOT FlexVol volume path'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol)'
     weight: 343
     type: 'text'
     regex:
@@ -930,8 +894,8 @@ attributes:
         action: 'hide'
   nfs_server_share32:
     value: ''
-    label: 'CDOT FlexVol volume junction path 2'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_2, this value will be /cinder_flexvol_2)'
+    label: 'CDOT FlexVol volume path 2'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_2)'
     weight: 344
     type: 'text'
     restrictions:
@@ -939,8 +903,8 @@ attributes:
         action: 'hide'
   nfs_server_share33:
     value: ''
-    label: 'CDOT FlexVol volume junction path 3'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_3, this value will be /cinder_flexvol_3)'
+    label: 'CDOT FlexVol volume path 3'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_3)'
     weight: 345
     type: 'text'
     restrictions:
@@ -948,8 +912,8 @@ attributes:
         action: "hide"
   nfs_server_share34:
     value: ''
-    label: 'CDOT FlexVol volume junction path 4'
-    description: 'The junction path is part of the NFS export location and specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. If the export is 10.10.10.10:/cinder_flexvol_4, this value will be /cinder_flexvol_4)'
+    label: 'CDOT FlexVol volume path 4'
+    description: 'Specifies the path for the FlexVol volume in which Cinder volumes should be placed (e.g. 10.10.10.10:/cinder_flexvol_4)'
     weight: 346
     type: 'text'
     restrictions:
