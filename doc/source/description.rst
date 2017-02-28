@@ -31,7 +31,7 @@ Requirements
 ======================= =================================
 Requirement             Version/Comment
 ======================= =================================
-Fuel                    9.0, 9.1
+Fuel                    9.0, 9.1, 9.2
 NetApp Storage System   Clustered Data ONTAP/ONTAP 9
 
                         SolidFire
