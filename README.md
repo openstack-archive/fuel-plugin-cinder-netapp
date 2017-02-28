@@ -20,12 +20,16 @@ Requirements
 
 | Requirement                                                                              | Version/Comment                                                                             |
 |------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| Mirantis Openstack compatibility                                                         | 9.0, 9.1                                                                                    |
+| Mirantis Openstack compatibility                                                         | 9.0, 9.1, 9.2                                                                               |
 | Netapp filer or appliance is reachable via one of the Mirantis OpenStack networks        | Clustered Data ONTAP, SolidFire or E-Series/EF-Series storage family with NFS\iSCSI enabled |
 
 
 Release Notes
 -------------
+
+**6.0.1**
+
+* Fixed the bug which could interrupt the deployment process
 
 **6.0.0**
 

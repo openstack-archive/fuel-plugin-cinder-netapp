@@ -3,7 +3,7 @@ name: cinder_netapp
 # Human-readable name for your plugin
 title: Cinder and NetApp integration
 # Plugin version
-version: '6.0.0'
+version: '6.0.1'
 # Description
 description: Enables using NetApp as a Cinder backend
 # Required fuel version
